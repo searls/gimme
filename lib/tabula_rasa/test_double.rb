@@ -31,6 +31,8 @@ module TabulaRasa
     end
 
     def method_missing(sym, *args, &block)
+      sym = args.shift if sym == :send
+            
       @double.stubbings[sym] ||= {}
       @double.stubbings[sym][args] ||= block.call if block
     end

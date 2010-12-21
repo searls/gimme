@@ -4,28 +4,23 @@ Given /^a new test double$/ do
   @double = gimme(Object)
 end
 
-When /^I stub the to_s method to return "([^"]*)"$/ do |result|
-  were(@double).to_s { result }
+When /^I stub #{METHOD_PATTERN} to return "([^"]*)"$/ do |method,args,result|
+  were(@double).send(method.to_sym) { result }
 end
 
-Then /^invoking to_s returns "([^"]*)"$/ do |result|
+Then /^invoking #{METHOD_PATTERN} returns "([^"]*)"$/ do |method,args,result|
   @double.to_s.should == result
 end
 
 When /^I invoke #{METHOD_PATTERN}$/ do |method,args|
-  puts method + ' with ' + (args||'')
-  if !args
-    @double.send(method.to_sym)
-  else
-    @double.send(method.to_sym,args.to_a(','))
-  end
+  sendish(@double,method,args)
 end
 
 Given /^I do not invoke (.*)(\(.*\))?$/ do |method,args|
 end
 
 Then /^invoking (.*) raises a (.*)$/ do |method,error_type|
-  expect_error(eval(error_type)) { @double.send(method.to_sym) }
+  expect_error(eval(error_type)) { sendish(@double,method) }
 end
 
 Then /^verifying #{METHOD_PATTERN} raises a (.*)$/ do |method,args,error_type|
@@ -33,20 +28,19 @@ Then /^verifying #{METHOD_PATTERN} raises a (.*)$/ do |method,args,error_type|
 end
 
 Then /^I can verify #{METHOD_PATTERN} has been invoked$/ do |method,args|
-  if !args
-    verify(@double).send(method.to_sym)
-  else
-    verify(@double).send(method.to_sym,args.to_a(','))
-  end
+  sendish(verify(@double),method,args)
 end
 
 Then /^I can verify #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |method,args,times|
-  verifier = verify(@double,times.to_i)
-  if !args
-    verifier.send(method.to_sym)
-  else
-    verifier.send(method.to_sym,args.to_a(','))
-  end
+  sendish(verify(@double,times.to_i),method,args)
+end
+
+def sendish(target,method,args=nil,&block)
+  args ? target.send(method.to_sym,argify(args)) : target.send(method.to_sym)
+end
+
+def argify(args)
+  args ? args.to_a(',') : nil
 end
 
 def expect_error(type,&block)

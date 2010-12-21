@@ -6,5 +6,5 @@ Feature: stubbing
   
   Scenario:
     Given a new test double
-    When I stub the to_s method to return "something"
+    When I stub to_s to return "something"
     Then invoking to_s returns "something"
