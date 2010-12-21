@@ -1,15 +1,19 @@
 METHOD_PATTERN = /([^\(]*)(\(.*\))?/
 
-Given /^a new test double$/ do
-  @double = gimme(Object)
+Given /^a new (.*)\s?test double$/ do | type |
+  @double = type.empty? ? gimme(Object) : gimme(eval(type))
 end
 
-When /^I stub #{METHOD_PATTERN} to return "([^"]*)"$/ do |method,args,result|
-  were(@double).send(method.to_sym) { result }
+# Stubbing
+
+When /^I stub #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
+  were(@double).send(method.to_sym) { eval(result) }
 end
 
-Then /^invoking #{METHOD_PATTERN} returns "([^"]*)"$/ do |method,args,result|
-  sendish(@double,method,args).should == result
+# Invoking
+
+Then /^invoking #{METHOD_PATTERN} returns (.*)$/ do |method,args,result|
+  sendish(@double,method,args).should == eval(result)
 end
 
 When /^I invoke #{METHOD_PATTERN}$/ do |method,args|
@@ -23,6 +27,8 @@ Then /^invoking (.*) raises a (.*)$/ do |method,error_type|
   expect_error(eval(error_type)) { sendish(@double,method) }
 end
 
+# Verifying
+
 Then /^verifying #{METHOD_PATTERN} raises a (.*)$/ do |method,args,error_type|
   expect_error(eval(error_type)) { verify(@double).send(method.to_sym) }
 end
@@ -35,7 +41,9 @@ Then /^I can verify #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |method
   sendish(verify(@double,times.to_i),method,args)
 end
 
-def sendish(target,method,args=nil,&block)
+# Helpers
+
+def sendish(target,method,args=nil)
   args ? target.send(method.to_sym,argify(args)) : target.send(method.to_sym)
 end
 
