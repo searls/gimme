@@ -1,0 +1,6 @@
+# Tabula Rasa
+
+A very lightweight test double tool in ruby. Written to facilitate test-driving by 
+getting out of the author's way and specifying only what matters.
+
+
