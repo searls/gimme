@@ -5,11 +5,14 @@ getting out of the author's way and specifying only what matters.
 
 ## The Gist
 
-Gimme was (for the first five hours of its life) named "Tabula Rasa", to very clearly state that it produces blank slate test doubles without any immediate baggage by having tied it to test double subtypes like mocks/fakes/spies/proxies. 
-But gimme was shorter, and I had to think of a method name that didn't conflict with `rspec-mock`'s `double()`. Gimme was born out of a desire to write low-friction, low-specification tests that feel a little more like Mockito than other ruby test double libraries
+Gimme was (for the first five hours of its life) named "Tabula Rasa," to very clearly indicate that it generates blank slate test doubles that lack any initial coupling with the concepts associated with specific [test double](http://xunitpatterns.com/Test%20Double.html) subtypes like mocks/stubs/fakes/spies/proxies. 
+But in the end, "gimme" was easier to type, and since I knew I'd need a method name that didn't conflict with `rspec-mock`'s `double()`, I renamed it. 
+
+Gimme is merely an expression of the desire to write low-friction, low-specification tests that feel a little more like Mockito than existing ruby test double libraries. Gimme should do whatever it can to help you isolate your SUT from its dependencies and then get out of your way.
 
 The few things it gives you:
-* Preserves natural arrange-act-assert flow — meaning that you can call `verify` after you've interacted with your system under test.
+
+* Natural arrange-act-assert flow — meaning that you can call `verify` after you've interacted with your system under test.
 * No stringy/symbolic representations of methods — similar to [rr](https://github.com/btakita/rr), gimme uses the blank slate pattern and `method_missing` to allow for minimally terse stubs and verifications
 * No stubbing or verifying methods the class doesn't respond to — test doubles lie; test doubles that don't pretend to respond_to methods that their real cousins don't respond to lie a little bit less.
 * No barking at you for not setting up an expectation on every invocation — verify exactly what matters to you in the context of what you're building; sometimes specifying the behavior of your SUT on a collaborator is significant, and sometimes it isn't.
