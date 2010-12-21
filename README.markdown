@@ -1,0 +1,48 @@
+# Gimme
+
+A very lightweight test double tool in ruby. Written to facilitate test-driving by 
+getting out of the author's way and specifying only what matters.
+
+## The Gist
+
+Gimme was (for the first five hours of its life) named "Tabula Rasa", to very clearly state that it produces blank slate test doubles without any immediate baggage by having tied it to test double subtypes like mocks/fakes/spies/proxies. 
+But gimme was shorter, and I had to think of a method name that didn't conflict with `rspec-mock`'s `double()`. Gimme was born out of a desire to write low-friction, low-specification tests that feel a little more like Mockito than other ruby test double libraries
+
+The few things it gives you:
+* Preserves natural arrange-act-assert flow — meaning that you can call `verify` after you've interacted with your system under test.
+* No stringy/symbolic representations of methods — similar to [rr](https://github.com/btakita/rr), gimme uses the blank slate pattern and `method_missing` to allow for minimally terse stubs and verifications
+* No stubbing or verifying methods the class doesn't respond to — test doubles lie; test doubles that don't pretend to respond_to methods that their real cousins don't respond to lie a little bit less.
+* No barking at you for not setting up an expectation on every invocation — verify exactly what matters to you in the context of what you're building; sometimes specifying the behavior of your SUT on a collaborator is significant, and sometimes it isn't.
+
+## The Disclaimer
+
+So far this is just a simple proof of concept script and some cucumber features. There's no gem to import yet. In fact, the only way to use it would be to reference a copy of the ruby script. Working on it. (If anyone wants to gemmify the project in a fork, however, I'd be thrilled.)
+
+Along those lines, Gimme has none of the cool stuff it would need to be a full-on replacement for existing test double frameworks like matchers, etc.
+
+## Examples
+
+To create a test double, you'd pass in a class:
+
+    double = gimme(Object)
+     
+Once you have your double, you can stub methods (but only methods that the given class will respond to):
+
+    were(double).to_s { 'Pants' }
+    double.to_s                         #=> 'Pants'
+    were(double).equal?(:ninja) { true }
+    were(double).equal?(:fruit) { false }    
+    double.equal?(:ninja)               #=> true
+    
+You can also verify interactions with your double    
+
+    double.equal?(:fruit)
+    verify(double).equal?(:fruit)       # does nothing
+    verify(double).equal?(:what_the)    # raises a Gimme::VerifyFailedError
+
+You can also specify how many times a specific invocation should have occurred (defaults to 1):
+
+    double.equal?(:fruit)
+    double.equal?(:fruit)
+    verify(double,2).equal?(:fruit)
+    
