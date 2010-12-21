@@ -9,7 +9,7 @@ When /^I stub #{METHOD_PATTERN} to return "([^"]*)"$/ do |method,args,result|
 end
 
 Then /^invoking #{METHOD_PATTERN} returns "([^"]*)"$/ do |method,args,result|
-  @double.to_s.should == result
+  sendish(@double,method,args).should == result
 end
 
 When /^I invoke #{METHOD_PATTERN}$/ do |method,args|
