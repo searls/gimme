@@ -1,0 +1,1 @@
+require 'gimme/test_double'

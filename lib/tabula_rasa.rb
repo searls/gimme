@@ -1,1 +1,0 @@
-require 'tabula_rasa/test_double'

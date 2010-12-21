@@ -1,4 +1,4 @@
-module TabulaRasa
+module Gimme
   class BlankSlate
     instance_methods.each { |m| undef_method m unless m =~ /^__/ }
   end
@@ -61,13 +61,13 @@ module TabulaRasa
 end
 
 def gimme(cls)
-  TabulaRasa::TestDouble.new(cls)
+  Gimme::TestDouble.new(cls)
 end
 
 def were(double)
-  TabulaRasa::Weres.new(double)
+  Gimme::Weres.new(double)
 end
 
 def verify(double,times=1)
-  TabulaRasa::Verifies.new(double,times)
+  Gimme::Verifies.new(double,times)
 end
