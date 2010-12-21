@@ -14,7 +14,7 @@ The few things it gives you:
 
 * Natural arrange-act-assert flow — meaning that you can call `verify` after you've interacted with your system under test.
 * No stringy/symbolic representations of methods — similar to [rr](https://github.com/btakita/rr), gimme uses the blank slate pattern and `method_missing` to allow for minimally terse stubs and verifications
-* No stubbing or verifying methods the class doesn't respond to — it's a cost that test doubles lie; test doubles that don't pretend to respond to messages they can't seem to lie (and cost) a little bit less.
+* No stubbing or verifying methods the class doesn't respond to — the most valid criticism I've heard regarding test doubles is that they lie; test doubles that don't respond to messages that their real counterparts wouldn't understand lie a little less.
 * No barking at you for not setting up an expectation on every invocation — verify exactly what matters to you in the context of what you're building; sometimes specifying the behavior of your SUT on a collaborator is significant, and sometimes it isn't.
 
 ## The Disclaimer
