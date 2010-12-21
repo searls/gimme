@@ -21,7 +21,13 @@ module Gimme
       @invocations[sym] ||= {}        
       @invocations[sym][args] = 1 + (@invocations[sym][args]||0)
 
-      @stubbings[sym][args] if @stubbings[sym]
+      if @stubbings[sym] && @stubbings[sym][args]
+        @stubbings[sym][args]
+      elsif sym.to_s[-1,1] == '?'
+        false
+      else
+        nil
+      end
     end
   end
 
