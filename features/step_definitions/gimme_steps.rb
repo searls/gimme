@@ -20,7 +20,7 @@ When /^I invoke #{METHOD_PATTERN}$/ do |method,args|
   sendish(@double,method,args)
 end
 
-Given /^I do not invoke (.*)(\(.*\))?$/ do |method,args|
+Given /^I do not invoke #{METHOD_PATTERN}$/ do |method,args|
 end
 
 Then /^invoking (.*) raises a (.*)$/ do |method,error_type|
@@ -63,7 +63,7 @@ end
 
 def argify(args_str)
   if args_str
-    args = args_str.to_a(',').map do |arg_str|
+    args = args_str.slice(1..-2).split(',').map do |arg_str|
       eval(arg_str)
     end
   end
