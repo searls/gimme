@@ -7,7 +7,7 @@ end
 # Stubbing
 
 When /^I stub #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
-  were(@double).send(method.to_sym) { eval(result) }
+  send_and_trap_error(were(@double),method,args) { eval(result) }
 end
 
 # Invoking
@@ -41,10 +41,24 @@ Then /^I can verify #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |method
   sendish(verify(@double,times.to_i),method,args)
 end
 
+# Exceptions
+Then /^a (.*) is raised$/ do |error_type|
+  @error.should be_a_kind_of eval(error_type)
+  @error = nil
+end
+
 # Helpers
 
-def sendish(target,method,args=nil)
-  args ? target.send(method.to_sym,argify(args)) : target.send(method.to_sym)
+def send_and_trap_error(target,method,args=nil,&block)
+  begin 
+    sendish(target,method,args,&block)
+  rescue Exception => e
+    @error = e
+  end
+end
+
+def sendish(target,method,args=nil,&block)
+    args ? target.send(method.to_sym,argify(args),&block) : target.send(method.to_sym,&block)
 end
 
 def argify(args)
