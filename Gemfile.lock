@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.4.2)
+    archive-tar-minitar (0.5.2)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     builder (3.0.0)
@@ -16,6 +17,13 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     json (1.4.6)
+    mime-types (1.16)
+    relish (0.2.0)
+      archive-tar-minitar (~> 0.5.2)
+      json (~> 1.4.6)
+      rest-client (~> 1.6.1)
+    rest-client (1.6.1)
+      mime-types (>= 1.16)
     rspec (2.3.0)
       rspec-core (~> 2.3.0)
       rspec-expectations (~> 2.3.0)
@@ -32,4 +40,5 @@ PLATFORMS
 DEPENDENCIES
   autotest
   cucumber
+  relish
   rspec
