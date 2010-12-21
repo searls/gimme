@@ -38,7 +38,8 @@ module Gimme
 
     def method_missing(sym, *args, &block)
       sym = args.shift if sym == :send
-            
+      raise NoMethodError.new("Double does not know how to respond to #{sym}") unless @double.cls.instance_methods.include? sym.to_s      
+          
       @double.stubbings[sym] ||= {}
       @double.stubbings[sym][args] ||= block.call if block
     end
