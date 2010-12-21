@@ -11,3 +11,7 @@ Feature: stubbing with an anything matcher
     And invoking introduce_to(Dog.new) returns 'Why Hello!'
     And invoking introduce_to(nil) returns 'Why Hello!'    
 
+    When I stub walk_to(anything,5) to return 'Park'
+    Then invoking walk_to(5,5) returns 'Park'
+    And invoking walk_to('pants',5) returns 'Park'
+    And invoking walk_to(nil,5) returns 'Park'    
