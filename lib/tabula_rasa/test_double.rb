@@ -46,7 +46,7 @@ module TabulaRasa
       sym = args.shift if sym == :send
       raise NoMethodError.new("Double does not know how to respond to #{sym}") unless @double.cls.instance_methods.include? sym.to_s      
       
-      invoked = !@double.invocations[sym] ? 0 : @double.invocations[sym][args]      
+      invoked = !@double.invocations[sym] ? 0 : (@double.invocations[sym][args]||0) #todo <- make this not the ugliest thing I've ever seen.
       if invoked != @times
         raise VerificationFailedError.new("expected #{sym} to have been called with #{args}")
       end

@@ -18,4 +18,4 @@ Feature: verification of argumentative methods
     When I invoke equal?(:pants)
     And I invoke equal?(:kaka)    
     Then I can verify equal?(:kaka) has been invoked 1 time
-    And I can verify equal?(:pants) has been invoked s times
+    And I can verify equal?(:pants) has been invoked 2 times

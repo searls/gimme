@@ -1,3 +1,5 @@
+METHOD_PATTERN = /([^\(]*)(\(.*\))?/
+
 Given /^a new test double$/ do
   @double = gimme(Object)
 end
@@ -10,7 +12,7 @@ Then /^invoking to_s returns "([^"]*)"$/ do |result|
   @double.to_s.should == result
 end
 
-When /^I invoke (.*)(\(.*\))?$/ do |method,args|
+When /^I invoke #{METHOD_PATTERN}$/ do |method,args|
   puts method + ' with ' + (args||'')
   if !args
     @double.send(method.to_sym)
@@ -26,11 +28,11 @@ Then /^invoking (.*) raises a (.*)$/ do |method,error_type|
   expect_error(eval(error_type)) { @double.send(method.to_sym) }
 end
 
-Then /^verifying (.*) raises a (.*)$/ do |method,error_type|
+Then /^verifying #{METHOD_PATTERN} raises a (.*)$/ do |method,args,error_type|
   expect_error(eval(error_type)) { verify(@double).send(method.to_sym) }
 end
 
-Then /^I can verify (.*)(\(.*\))? has been invoked$/ do |method,args|
+Then /^I can verify #{METHOD_PATTERN} has been invoked$/ do |method,args|
   if !args
     verify(@double).send(method.to_sym)
   else
@@ -38,7 +40,7 @@ Then /^I can verify (.*)(\(.*\))? has been invoked$/ do |method,args|
   end
 end
 
-Then /^I can verify (.*)(\(.*\))? has been invoked (\d+) times?$/ do |method,args,times|
+Then /^I can verify #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |method,args,times|
   verifier = verify(@double,times.to_i)
   if !args
     verifier.send(method.to_sym)
