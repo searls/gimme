@@ -27,7 +27,8 @@ module Gimme
       @stubbings[sym].each do |stub_args,result|
         matching = args.size == stub_args.size
         args.each_index do |i| 
-          unless args[i] == stub_args[i] || (stub_args[i].matches?(args[i]))
+          stub_arg = stub_args[i]
+          unless args[i] == stub_arg || (stub_arg.respond_to?(:matches?) && stub_arg.matches?(args[i]))
             matching = false
             break
           end
