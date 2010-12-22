@@ -7,7 +7,7 @@ end
 # Stubbing
 
 When /^I stub #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
-  send_and_trap_error(NoMethodError,were(@double),method,args) { eval(result) }
+  send_and_trap_error(NoMethodError,give(@double),method,args) { eval(result) }
 end
 
 # Invoking

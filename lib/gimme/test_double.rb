@@ -97,7 +97,7 @@ module Gimme
       unless cls.instance_methods.include? sym.to_s
         raise NoMethodError.new("The Test Double of #{cls} may not know how to respond to the '#{sym}' method. 
           If you're confident that a real #{cls} will know how to respond to '#{sym}', then you can
-          invoke were! or verify! to override this error.")
+          invoke give! or verify! to override this error.")
       end
       sym
     end
@@ -126,7 +126,7 @@ def gimme(cls)
   Gimme::TestDouble.new(cls)
 end
 
-def were(double)
+def give(double)
   Gimme::Weres.new(double)
 end
 

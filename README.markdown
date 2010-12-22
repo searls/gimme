@@ -33,11 +33,11 @@ To create a test double, you'd pass in a class:
      
 Once you have your double, you can stub methods (but only methods that the given class will respond to):
 
-    were(double).to_s { 'Pants' }
+    give(double).to_s { 'Pants' }
     double.to_s                         #=> 'Pants'
     
-    were(double).equal?(:ninja) { true }
-    were(double).equal?(:fruit) { false }    
+    give(double).equal?(:ninja) { true }
+    give(double).equal?(:fruit) { false }    
     double.equal?(:ninja)               #=> true
     
 You can also verify interactions with your double    
@@ -62,7 +62,7 @@ Basic argument matchers are still being developed, but the goal will be to make 
 
 Replacing an argument with `anything` will instantiate a `Gimme::Matchers::Anything` matcher, which always returns true, regardless of what gets passed in.
 
-    were(dog).walk_to(anything,5) { 'Park' }
+    give(dog).walk_to(anything,5) { 'Park' }
     
     walk_to(3,5)          #=> 'Park'
     walk_to('pants',5)    #=> 'Park'
