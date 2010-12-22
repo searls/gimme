@@ -23,9 +23,9 @@ The few things it gives you:
 
 So far this is just a simple proof of concept script and some cucumber features. There's no gem to import yet. In fact, the only way to use it would be to reference a copy of the ruby script. (If anyone wants to gemmify the project in a fork, however, I'd be thrilled.)
 
-On a related note, Gimme has none of the cool stuff it would need to be a full-on replacement for existing test double frameworks like matchers, etc.
+On a related note, Gimme yet lacks some of the cool stuff it would need to be a full-on replacement for your current test double frameworks.
 
-## Examples
+## Getting started
 
 To create a test double, you'd pass in a class:
 
@@ -44,8 +44,8 @@ You can also verify interactions with your double
 
     double.equal?(:fruit)
     
-    verify(double).equal?(:fruit)       # does nothing
-    verify(double).equal?(:what_the)    # raises a Gimme::VerifyFailedError
+    verify(double).equal?(:fruit)       # passes verification (read: does nothing)
+    verify(double).equal?(:what_the)    # fails verification (raises a Gimme::VerifyFailedError)
 
 You can also specify how many times a specific invocation should have occurred (defaults to 1):
 
@@ -54,3 +54,21 @@ You can also specify how many times a specific invocation should have occurred (
     
     verify(double,2).equal?(:fruit)
     
+### Matchers
+
+Basic argument matchers are still being developed, but the goal will be to make custom matchers as easy-to-make as possible. To write a custom matcher it only needs to respond to `matches?(arg=nil)`. 
+
+**Anything**
+
+Replacing an argument with `anything` will instantiate a `Gimme::Matchers::Anything` matcher, which always returns true, regardless of what gets passed in.
+
+    were(dog).walk_to(anything,5) { 'Park' }
+    
+    walk_to(3,5)          #=> 'Park'
+    walk_to('pants',5)    #=> 'Park'
+    walk_to(nil,5)        #=> 'Park'        
+    walk_to(3,5.1)        #=> nil
+        
+Then invoking walk_to(5,5) returns 'Park'
+And invoking walk_to('pants',5) returns 'Park'
+And invoking walk_to(nil,5) returns 'Park'
