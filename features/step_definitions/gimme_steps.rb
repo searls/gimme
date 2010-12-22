@@ -50,6 +50,15 @@ Then /^I can verify! #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |metho
   sendish(verify!(@double,times.to_i),method,args)
 end
 
+#Captors
+
+Given /^a new argument captor$/ do
+  @captor = Captor.new
+end
+
+Then /^the captor's value is (.*)$/ do |value|
+  @captor.value.should == eval(value)
+end
 
 # Exceptions
 Then /^a (.*) is raised$/ do |error_type|
@@ -68,7 +77,9 @@ def send_and_trap_error(error_type,target,method,args=nil,result=nil)
 end
 
 def sendish(target,method,args=nil,result=nil)
-    eval("target.#{method}#{args} { #{result} }")
+    s = "target.#{method}#{args}"
+    s += "{ #{result} }" if result
+    eval(s)
 end
 
 def expect_error(type,&block)
