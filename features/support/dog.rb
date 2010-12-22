@@ -1,10 +1,18 @@
 
 # A simple class hierarchy declaring a few different types of methods on it that I can write cucumber features against something other than standard ruby classes/methods
 
+module Eater
+  def eat(*foods)
+    #verify varargs
+  end
+end
+
 class Animal
 end
 
 class Dog < Animal
+  include Eater
+    
   # to exercise stub & verify of attributes: matching(regex)
   attr_accessor :name
   
