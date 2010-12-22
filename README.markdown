@@ -87,7 +87,7 @@ See the [cucumber feature for these matchers](http://relishapp.com/searls/gimme/
 
 ### Argument Captors
 
-Argument captors, when paired with the `capture` matcher are a valuable way for your test to get at the values that your system under test passes to its collaborators. Often, classes are responsible for building objects to be ingested by their collaborators but for which normal state verification would either be difficult or nonsensical. Argument captors should only be necessary sparingly for most types of applications, but they're a handy tool to have in the toolbox.
+An argument `Captor`, when paired with the `capture` matcher, is a valuable way for your test to get at the values that your SUT passes to its collaborators. Often, classes are responsible for building objects to be ingested by their collaborators but for which normal state verification would either be difficult or nonsensical. Argument captors should only be necessary sparingly for most types of applications, but they're a handy tool to have in the toolbox.
 
 In cases like these, a captor can be used to "capture" the real argument value that the system under test passes its collaborator. This pseudocode provides an example:
 
