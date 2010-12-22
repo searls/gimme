@@ -5,7 +5,7 @@ getting out of the author's way and specifying only what matters.
 
 You can read the (stale) documentation below or the (fresh) [gimme Cucumber features on Relish](http://relishapp.com/searls/gimme)
 
-## The Gist (or "What does it Gimme?" ... har.)
+## Basics (or "What does it Gimme?" ... har.)
 
 Gimme was (for the first five hours of its life) named "Tabula Rasa," to very clearly indicate that it generates blank slate test doubles that lack any initial coupling with the concepts associated with specific [test double](http://xunitpatterns.com/Test%20Double.html) subtypes like mocks/stubs/fakes/spies/proxies. 
 But in the end, "gimme" was easier to type, and since I knew I'd need a method name that didn't conflict with `rspec-mock`'s `double()`, I renamed it. 
