@@ -27,8 +27,7 @@ module Gimme
       @stubbings[sym].each do |stub_args,result|
         matching = args.size == stub_args.size
         args.each_index do |i| 
-          stub_arg = stub_args[i]
-          unless args[i] == stub_arg || (stub_arg.respond_to?(:matches?) && stub_arg.matches?(args[i]))
+          unless args[i] == stub_args[i] || (stub_args[i].respond_to?(:matches?) && stub_args[i].matches?(args[i]))
             matching = false
             break
           end
@@ -70,7 +69,22 @@ module Gimme
       sym = MethodResolver.resolve_sent_method(@double.cls,sym,args)
       args = [args].flatten
             
-      invoked = !@double.invocations[sym] ? 0 : (@double.invocations[sym][args]||0) #todo <- make this not the ugliest thing I've ever seen.
+            
+      #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
+      invoked = 0
+      if @double.invocations[sym]
+         @double.invocations[sym].each do |invoke_args,count|
+           matching = args.size == invoke_args.size
+           invoke_args.each_index do |i|
+             unless invoke_args[i] == args[i]  || (args[i].respond_to?(:matches?) && args[i].matches?(invoke_args[i]))
+               matching = false
+               break
+             end
+           end
+           invoked += count if matching
+         end
+      end
+            
       if invoked != @times
         raise VerificationFailedError.new("expected #{sym} to have been called with #{args}")
       end
