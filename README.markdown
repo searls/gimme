@@ -69,6 +69,8 @@ Replacing an argument with `anything` will instantiate a `Gimme::Matchers::Anyth
     walk_to(nil,5)        #=> 'Park'        
     walk_to(3,5.1)        #=> nil
         
-Then invoking walk_to(5,5) returns 'Park'
-And invoking walk_to('pants',5) returns 'Park'
-And invoking walk_to(nil,5) returns 'Park'
+Matchers can be used when both stubbing and verifying a method. To verify on anything, you could:
+
+    dog.holler_at(true)
+    
+    verify(dog).holler_at(anything) #=> passes verification    
