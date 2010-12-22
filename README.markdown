@@ -93,7 +93,7 @@ In cases like these, a captor can be used to "capture" the real argument value t
 
     #arrange
     search_system = gimme(SearchSystem)
-    sut = QueryExecutor(search_sytem)
+    sut = QueryExecutor.new(search_sytem)
     query_captor = Captor.new
 
     #act
