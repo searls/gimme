@@ -80,9 +80,10 @@ Matchers can be used when both stubbing and verifying a method. To verify on any
     
     verify(dog).holler_at(anything) #=> passes verification    
     
-**numeric**
 **is_a(class)**
 **any(class)**
+**boolean**
+**numeric**
 
 See the [cucumber feature for these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
     
