@@ -94,7 +94,7 @@ that at runtime, the newest version of the `bananimals` gem will reopen Dog and 
     
     dog.meow        #=> :purr
     
-Similarly, if we had really been after verifying meow, we could do the same thing using `verify!`:
+We cam accomplish the same thing using `verify!`:
 
     dog = gimme(Dog)
     
