@@ -1,3 +1,4 @@
+include Gimme
 METHOD_PATTERN = /([^\(]*)(\(.*\))?/
 
 Given /^a new (.*)\s?test double$/ do | type |
