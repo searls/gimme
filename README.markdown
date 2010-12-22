@@ -56,7 +56,7 @@ You can also specify how many times a specific invocation should have occurred (
     
 ### Matchers
 
-Basic argument matchers are still being developed, but the goal will be to make custom matchers as easy-to-make as possible. To write a custom matcher it only needs to respond to `matches?(arg=nil)`. 
+Basic argument matchers are still being developed, but the goal will be to make custom matchers as easy-to-make as possible. To write a custom matcher it only needs to respond to `matches?(arg)`. 
 
 **Anything**
 

@@ -4,7 +4,7 @@ Feature: stubbing sensible defaults
   I want my test double to have some sensible defaults
   so that I do not find myself writing redundant/obvious stub code    
   
-  Scenario:
+  Scenario: query? methods' default stubbing is false
     Given a new Dog test double
     Then invoking purebred? returns false
 
