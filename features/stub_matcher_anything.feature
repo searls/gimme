@@ -16,8 +16,18 @@ Feature: stubbing with an anything matcher
     | introduce_to(anything) | 'Why Hello!' | introduce_to(nil)     | 'Why Hello!' |
   
   Scenarios: a two-argument method
-    | method              | stubbing | invocation         | returns |
-    | walk_to(anything,5) | 'Park'   | walk_to(5,5)       | 'Park'  |
-    | walk_to(anything,5) | 'Park'   | walk_to('pants',5) | 'Park'  |
-    | walk_to(anything,5) | 'Park'   | walk_to(nil,5)     | 'Park'  |
-    | walk_to(anything,5) | 'Park'   | walk_to(3,5.1)     | nil     |    
+    | method                     | stubbing | invocation         | returns |
+    | walk_to(anything,5)        | 'Park'   | walk_to(5,5)       | 'Park'  |
+    | walk_to(anything,5)        | 'Park'   | walk_to('pants',5) | 'Park'  |
+    | walk_to(anything,5)        | 'Park'   | walk_to(nil,5)     | 'Park'  |
+    | walk_to(anything,5)        | 'Park'   | walk_to(3,5.1)     | nil     |
+    | walk_to(3.123,anything)    | 'Park'   | walk_to(3.123,nil) | 'Park'  |    
+    | walk_to(anything,anything) | 'Park'   | walk_to(3,5.1)     | 'Park'  |
+    
+  Scenarios: a variable-argument method (argument size must match; but I don't know if I like some of these…)
+  | method                       | stubbing | invocation                | returns |
+  | eat(anything,:fish,anything) | :yum      | eat(:cat,:fish,:mouse)   | :yum    |  
+  | eat(anything,:fish,anything) | :yum      | eat(:cat,:pants,:mouse)  | nil     |
+  | eat(anything)                | :yum      | eat(:cat,:pants)         | nil     |      
+  | eat(:cat,anything)           | :yum      | eat(:cat)                | nil     |
+  | eat(:cat,anything)           | :yum      | eat(:cat,nil)            | :yum    |  

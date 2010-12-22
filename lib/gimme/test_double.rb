@@ -15,7 +15,7 @@ module Gimme
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(@cls,sym,args)
+      sym = MethodResolver.resolve_sent_method(self,sym,args)
       args = [args].flatten
       
       @invocations[sym] ||= {}        
@@ -51,7 +51,7 @@ module Gimme
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(@double.cls,sym,args)
+      sym = MethodResolver.resolve_sent_method(@double,sym,args)
       args = [args].flatten
           
       @double.stubbings[sym] ||= {}
@@ -66,7 +66,7 @@ module Gimme
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(@double.cls,sym,args)
+      sym = MethodResolver.resolve_sent_method(@double,sym,args)
       args = [args].flatten
                         
       #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
@@ -91,9 +91,14 @@ module Gimme
   end
   
   class MethodResolver
-    def self.resolve_sent_method(cls,sym,args)
+    def self.resolve_sent_method(double,sym,args)
+      cls = double.cls
       sym = args.shift if sym == :send      
-      raise NoMethodError.new("Double does not know how to respond to #{sym}") unless cls.instance_methods.include? sym.to_s
+      unless cls.instance_methods.include? sym.to_s
+        raise NoMethodError.new("The Test Double of #{cls} may not know how to respond to the '#{sym}' method. 
+          If you're confident that a real #{cls} will know how to respond to '#{sym}', then you can
+          invoke give! or verify! to override this error.")
+      end
       sym
     end
   end
@@ -121,7 +126,7 @@ def gimme(cls)
   Gimme::TestDouble.new(cls)
 end
 
-def were(double)
+def give(double)
   Gimme::Weres.new(double)
 end
 
