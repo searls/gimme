@@ -18,6 +18,12 @@ module Gimme
       end
     end
     
+    class Boolean < Matcher
+      def matches?(arg)
+        arg.kind_of?(TrueClass) || arg.kind_of?(FalseClass)
+      end      
+    end
+    
     class IsA < Matcher
       def initialize(cls)
         @cls = cls
@@ -39,16 +45,20 @@ module Gimme
     Gimme::Matchers::Anything.new
   end
 
-  def numeric
-    Gimme::Matchers::Numeric.new
-  end
-
   def is_a(cls)
     Gimme::Matchers::IsA.new(cls)
   end
 
   def any(cls)
     Gimme::Matchers::Any.new(cls)
+  end
+
+  def numeric
+    Gimme::Matchers::Numeric.new
+  end
+
+  def boolean
+    Gimme::Matchers::Boolean.new
   end
 
 end

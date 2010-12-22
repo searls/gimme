@@ -31,12 +31,6 @@ Feature: stubbing with matchers
     | eat(anything)                | :yum  | eat(:cat,:pants)        | nil     |
     | eat(:cat,anything)           | :yum  | eat(:cat)               | nil     |
     | eat(:cat,anything)           | :yum  | eat(:cat,nil)           | :yum    |
-    
-  Scenarios: the numeric matcher
-  | method                   | gives    | invocation              | returns  |
-  | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,8)        | :hydrant |
-  | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,'string') | nil      |
-  | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,nil)      | nil      |
 
   Scenarios: the is_a matcher
   | method                     | gives  | invocation               | returns |
@@ -46,8 +40,21 @@ Feature: stubbing with matchers
   | introduce_to(is_a(Animal)) | :howdy | introduce_to(nil)        | nil     |
 
   Scenarios: the any matcher (like is_a but also matches nil)
-  | method                     | gives  | invocation               | returns |
+  | method                    | gives  | invocation               | returns |
   | introduce_to(any(Animal)) | :howdy | introduce_to(Animal.new) | :howdy  |
   | introduce_to(any(Animal)) | :howdy | introduce_to(Cat.new)    | :howdy  |
   | introduce_to(any(Animal)) | :howdy | introduce_to(Object.new) | nil     |
   | introduce_to(any(Animal)) | :howdy | introduce_to(nil)        | :howdy  |
+
+  Scenarios: the numeric matcher
+  | method                   | gives    | invocation              | returns  |
+  | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,8)        | :hydrant |
+  | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,'string') | nil      |
+  | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,nil)      | nil      |
+
+  Scenarios: the boolean matcher
+  | method             | gives | invocation        | returns |
+  | holler_at(boolean) | :ruff | holler_at(true)   | :ruff   |
+  | holler_at(boolean) | :ruff | holler_at(false)  | :ruff   |
+  | holler_at(boolean) | :ruff | holler_at('woof') | nil     |
+  | holler_at(boolean) | :ruff | holler_at(nil)    | nil     |
