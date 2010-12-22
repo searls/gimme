@@ -4,11 +4,12 @@ Feature: basic stubbing
   I want to create a test double
   so that I can stub method returns
   
-  Scenario:
+  Scenario: stubbing a built-in no-arg method
     Given a new test double
     When I stub to_s to return "something"
     Then invoking to_s returns "something"
     
+  Scenario: stubbing a custom no-arg method
     Given a new Dog test double
     When I stub purebred? to return true
     Then invoking purebred? returns true
