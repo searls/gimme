@@ -143,46 +143,45 @@ module Gimme
     end    
   end
 
-end
+  #public methods
+  def gimme(cls)
+    Gimme::TestDouble.new(cls)
+  end
 
+  def give(double)
+    Gimme::Gives.new(double)
+  end
 
+  def give!(double)
+    give = give(double)
+    give.raises_no_method_error = false
+    give
+  end
 
-def gimme(cls)
-  Gimme::TestDouble.new(cls)
-end
+  def verify(double,times=1)
+    Gimme::Verifies.new(double,times)
+  end
 
-def give(double)
-  Gimme::Gives.new(double)
-end
+  def verify!(double,times=1)
+    verify = verify(double,times)
+    verify.raises_no_method_error = false
+    verify
+  end
 
-def give!(double)
-  give = give(double)
-  give.raises_no_method_error = false
-  give
-end
+  def anything
+    Gimme::Matchers::Anything.new
+  end
 
-def verify(double,times=1)
-  Gimme::Verifies.new(double,times)
-end
+  def numeric
+    Gimme::Matchers::Numeric.new
+  end
 
-def verify!(double,times=1)
-  verify = verify(double,times)
-  verify.raises_no_method_error = false
-  verify
-end
+  def is_a(cls)
+    Gimme::Matchers::IsA.new(cls)
+  end
 
-def anything
-  Gimme::Matchers::Anything.new
-end
+  def any(cls)
+    Gimme::Matchers::Any.new(cls)
+  end
 
-def numeric
-  Gimme::Matchers::Numeric.new
-end
-
-def is_a(cls)
-  Gimme::Matchers::IsA.new(cls)
-end
-
-def any(cls)
-  Gimme::Matchers::Any.new(cls)
 end
