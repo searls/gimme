@@ -15,7 +15,7 @@ module Gimme
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(self,sym,args)
+      sym = MethodResolver.resolve_sent_method(self,sym,args,false)
             
       @invocations[sym] ||= {}        
       @stubbings[sym] ||= {}
@@ -45,12 +45,14 @@ module Gimme
   end
 
   class Gives < BlankSlate
+    attr_accessor :raises_no_method_error
     def initialize(double)
       @double = double
+      @raises_no_method_error = true
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(@double,sym,args)
+      sym = MethodResolver.resolve_sent_method(@double,sym,args,@raises_no_method_error)
       
       @double.stubbings[sym] ||= {}
       @double.stubbings[sym][args] = block.call if block
@@ -58,13 +60,15 @@ module Gimme
   end
 
   class Verifies < BlankSlate
+    attr_accessor :raises_no_method_error
     def initialize(double,times=1)
       @double = double
       @times = times
+      @raises_no_method_error = true
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(@double,sym,args)
+      sym = MethodResolver.resolve_sent_method(@double,sym,args,@raises_no_method_error)
                         
       #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
       invoked = 0
@@ -88,13 +92,13 @@ module Gimme
   end
   
   class MethodResolver
-    def self.resolve_sent_method(double,sym,args)
+    def self.resolve_sent_method(double,sym,args,raises_no_method_error=true)
       cls = double.cls
       sym = args.shift if sym == :send      
-      unless cls.instance_methods.include? sym.to_s
+      unless !raises_no_method_error || cls.instance_methods.include?(sym.to_s)
         raise NoMethodError.new("The Test Double of #{cls} may not know how to respond to the '#{sym}' method. 
           If you're confident that a real #{cls} will know how to respond to '#{sym}', then you can
-          invoke give! or verify! to override this error.")
+          invoke give! or verify! to suppress this error.")
       end
       sym
     end
@@ -127,8 +131,20 @@ def give(double)
   Gimme::Gives.new(double)
 end
 
+def give!(double)
+  give = give(double)
+  give.raises_no_method_error = false
+  give
+end
+
 def verify(double,times=1)
   Gimme::Verifies.new(double,times)
+end
+
+def verify!(double,times=1)
+  verify = verify(double,times)
+  verify.raises_no_method_error = false
+  verify
 end
 
 def anything

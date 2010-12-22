@@ -74,3 +74,30 @@ Matchers can be used when both stubbing and verifying a method. To verify on any
     dog.holler_at(true)
     
     verify(dog).holler_at(anything) #=> passes verification    
+    
+### Suppressing NoMethodError
+
+Whenever you stub or verify a method against a test double, Gimme will first verify that the method can be found on the class being
+doubled. Since the vast majority of methods can be verified in this way, this default behavior is designed to provide fast failure.
+This can be really handy, whether the cause is as simple as a transcription error of a method name from irb or as convoluted as an incorrect version of a dependency that lacks the method you expected. 
+
+However, because classes can be reopened and edited at runtime, sometimes you'll be able to outsmart Gimme by knowing that a particular
+method *will* be available on the class being doubled, even though it isn't *right now*.
+
+For these situations, you can use `give!` and `verify!` to suppress the check that triggers NoMethodError from being raised.
+
+Here's an example where our Dog is again under test, and even though the Dog class lacks a public `meow()` method, we happen to know
+that at runtime, the newest version of the `bananimals` gem will reopen Dog and add `meow()` to it.
+
+    dog = gimme(Dog)
+    give!(dog).meow { :purr }
+    
+    dog.meow        #=> :purr
+    
+Similarly, if we had really been after verifying meow, we could do the same thing using `verify!`:
+
+    dog = gimme(Dog)
+    
+    dog.meow
+    
+    verify!(dog).meow     #=> verification passes, even though Gimme can't see the meow method.

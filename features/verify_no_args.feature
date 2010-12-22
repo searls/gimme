@@ -16,6 +16,4 @@ Feature: verification of no-arg methods
         
     When I invoke to_s
     Then I can verify to_s has been invoked 2 times
-    
-    Then invoking gobbeldy_gook raises a NoMethodError
     And verifying gobbeldy_gook raises a NoMethodError

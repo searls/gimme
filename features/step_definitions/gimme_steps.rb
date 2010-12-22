@@ -10,6 +10,10 @@ When /^I stub #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
   send_and_trap_error(NoMethodError,give(@double),method,args,result)
 end
 
+When /^I stub! #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
+  send_and_trap_error(NoMethodError,give!(@double),method,args,result)
+end
+
 # Invoking
 
 Then /^invoking #{METHOD_PATTERN} returns (.*)$/ do |method,args,result|
@@ -40,6 +44,11 @@ end
 Then /^I can verify #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |method,args,times|
   sendish(verify(@double,times.to_i),method,args)
 end
+
+Then /^I can verify! #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |method,args,times|
+  sendish(verify!(@double,times.to_i),method,args)
+end
+
 
 # Exceptions
 Then /^a (.*) is raised$/ do |error_type|
