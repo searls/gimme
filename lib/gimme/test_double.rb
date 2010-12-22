@@ -119,9 +119,17 @@ module Gimme
         true
       end
     end
+    
+    class Numeric < Matcher
+      def matches?(arg=nil)        
+        arg.kind_of?(Fixnum) || arg.kind_of?(Numeric) || arg.kind_of?(Float)
+      end
+    end
   end
 
 end
+
+
 
 def gimme(cls)
   Gimme::TestDouble.new(cls)
@@ -149,4 +157,8 @@ end
 
 def anything
   Gimme::Matchers::Anything.new
+end
+
+def numeric
+  Gimme::Matchers::Numeric.new
 end
