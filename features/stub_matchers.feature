@@ -37,3 +37,17 @@ Feature: stubbing with matchers
   | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,8)        | :hydrant |
   | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,'string') | nil      |
   | walk_to(numeric,numeric) | :hydrant | walk_to(1.498,nil)      | nil      |
+
+  Scenarios: the is_a matcher
+  | method                     | gives  | invocation               | returns |
+  | introduce_to(is_a(Animal)) | :howdy | introduce_to(Animal.new) | :howdy  |
+  | introduce_to(is_a(Animal)) | :howdy | introduce_to(Cat.new)    | :howdy  |
+  | introduce_to(is_a(Animal)) | :howdy | introduce_to(Object.new) | nil     |
+  | introduce_to(is_a(Animal)) | :howdy | introduce_to(nil)        | nil     |
+
+  Scenarios: the any matcher (like is_a but also matches nil)
+  | method                     | gives  | invocation               | returns |
+  | introduce_to(any(Animal)) | :howdy | introduce_to(Animal.new) | :howdy  |
+  | introduce_to(any(Animal)) | :howdy | introduce_to(Cat.new)    | :howdy  |
+  | introduce_to(any(Animal)) | :howdy | introduce_to(Object.new) | nil     |
+  | introduce_to(any(Animal)) | :howdy | introduce_to(nil)        | :howdy  |
