@@ -21,9 +21,7 @@ The few things it gives you:
 
 ## The Disclaimer
 
-So far this is just a simple proof of concept script and some cucumber features. There's no gem to import yet. In fact, the only way to use it would be to reference a copy of the ruby script. (If anyone wants to gemmify the project in a fork, however, I'd be thrilled.)
-
-On a related note, Gimme yet lacks some of the cool stuff it would need to be a full-on replacement for your current test double frameworks.
+Gimme is still in early development. There isn't a gem for it yet, which means that to use it, you need to require `lib/gimme.rb`. Gimme is still a little light on features, but it may soon be robust enough to stand in for your current test double framework of choice. In addition to generating test doubles, stubbing methods, and verifying invocations, Gimme also supports argument matchers and captors which should be enough to suit the needs for most greenfield isolated unit tests/specs.
 
 ## Getting started
 
@@ -86,6 +84,25 @@ Matchers can be used when both stubbing and verifying a method. To verify on any
 **numeric**
 
 See the [cucumber feature for these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
+
+### Argument Captors
+
+Argument captors, when paired with the `capture` matcher are a valuable way for your test to get at the values that your system under test passes to its collaborators. Often, classes are responsible for building objects to be ingested by their collaborators but for which normal state verification would either be difficult or nonsensical. Argument captors should only be necessary sparingly for most types of applications, but they're a handy tool to have in the toolbox.
+
+In cases like these, a captor can be used to "capture" the real argument value that the system under test passes its collaborator. This pseudocode provides an example:
+
+    #arrange
+    search_system = gimme(SearchSystem)
+    sut = QueryExecutor(search_sytem)
+    query_captor = Captor.new
+
+    #act
+    sut.submit_query_for_string("find dogs")
+    
+    #assert
+    verify(search_system).execute(capture(query_captor))
+    query_captor.value.table_name.should == "Dogs"
+
     
 ### Suppressing NoMethodError
 
