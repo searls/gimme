@@ -3,7 +3,7 @@
 A very lightweight test double tool in ruby. Written to facilitate test-driving by 
 getting out of the author's way and specifying only what matters.
 
-Features: http://relishapp.com/searls/gimme
+You can read the (stale) documentation below or the (fresh) [gimme Cucumber features on Relish](http://relishapp.com/searls/gimme)
 
 ## The Gist (or "What does it Gimme?" ... har.)
 
