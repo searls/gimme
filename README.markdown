@@ -86,7 +86,7 @@ method *will* be available on the class being doubled, even though it isn't *rig
 
 For these situations, you can use `give!` and `verify!` to suppress the check that triggers NoMethodError from being raised.
 
-Here's an example where our Dog is again under test, and even though the Dog class lacks a public `meow()` method, we happen to know
+Here's an example where our Dog is again being doubled to facilitate some test, and even though the Dog class lacks a public `meow()` method, we happen to know
 that at runtime, the newest version of the `bananimals` gem will reopen Dog and add `meow()` to it.
 
     dog = gimme(Dog)
