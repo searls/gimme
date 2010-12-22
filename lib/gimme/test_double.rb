@@ -17,7 +17,7 @@ module Gimme
     def method_missing(sym, *args, &block)
       sym = MethodResolver.resolve_sent_method(self,sym,args)
       args = [args].flatten
-      
+            
       @invocations[sym] ||= {}        
       @stubbings[sym] ||= {}
       
@@ -53,7 +53,7 @@ module Gimme
     def method_missing(sym, *args, &block)
       sym = MethodResolver.resolve_sent_method(@double,sym,args)
       args = [args].flatten
-          
+      
       @double.stubbings[sym] ||= {}
       @double.stubbings[sym][args] = block.call if block
     end

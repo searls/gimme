@@ -7,7 +7,7 @@ end
 # Stubbing
 
 When /^I stub #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
-  send_and_trap_error(NoMethodError,give(@double),method,args) { eval(result) }
+  send_and_trap_error(NoMethodError,give(@double),method,args,result)
 end
 
 # Invoking
@@ -49,24 +49,16 @@ end
 
 # Helpers
 
-def send_and_trap_error(error_type,target,method,args=nil,&block)
+def send_and_trap_error(error_type,target,method,args=nil,result=nil)
   begin 
-    sendish(target,method,args,&block)
+    sendish(target,method,args,result)
   rescue error_type => e
     @error = e
   end
 end
 
-def sendish(target,method,args=nil,&block)
-    args ? target.send(method.to_sym,argify(args),&block) : target.send(method.to_sym,&block)
-end
-
-def argify(args_str)
-  if args_str
-    args = args_str.slice(1..-2).split(',').map do |arg_str|
-      eval(arg_str)
-    end
-  end
+def sendish(target,method,args=nil,result=nil)
+    eval("target.#{method}#{args} { #{result} }")
 end
 
 def expect_error(type,&block)
