@@ -27,6 +27,11 @@ On a related note, Gimme yet lacks some of the cool stuff it would need to be a 
 
 ## Getting started
 
+First, require gimme and include Gimme's top-level methods.
+
+    require 'gimme'
+    include Gimme
+
 To create a test double, you'd pass in a class:
 
     double = gimme(Object)
@@ -58,7 +63,7 @@ You can also specify how many times a specific invocation should have occurred (
 
 Basic argument matchers are still being developed, but the goal will be to make custom matchers as easy-to-make as possible. To write a custom matcher it only needs to respond to `matches?(arg)`. 
 
-**Anything**
+**anything**
 
 Replacing an argument with `anything` will instantiate a `Gimme::Matchers::Anything` matcher, which always returns true, regardless of what gets passed in.
 
@@ -74,6 +79,12 @@ Matchers can be used when both stubbing and verifying a method. To verify on any
     dog.holler_at(true)
     
     verify(dog).holler_at(anything) #=> passes verification    
+    
+**numeric**
+**is_a(class)**
+**any(class)**
+
+See the [cucumber feature for these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
     
 ### Suppressing NoMethodError
 
