@@ -45,7 +45,7 @@ module Gimme
     end
   end
 
-  class Weres < BlankSlate
+  class Gives < BlankSlate
     def initialize(double)
       @double = double
     end
@@ -127,7 +127,7 @@ def gimme(cls)
 end
 
 def give(double)
-  Gimme::Weres.new(double)
+  Gimme::Gives.new(double)
 end
 
 def verify(double,times=1)
