@@ -15,14 +15,15 @@ Jeweler::Tasks.new do |gem|
   gem.name = "gimme"
   gem.homepage = "http://github.com/searls/gimme"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A low-specification test double library for Ruby}
+  gem.description = %Q{gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). }
   gem.email = "searls@gmail.com"
   gem.authors = ["Justin Searls"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   #  gem.add_runtime_dependency 'jabber4r', '> 0.1'
-  #  gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.add_development_dependency "rspec", "> 1.3.1"
+  gem.add_development_dependency "cucumber", "> 0.10.0"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
