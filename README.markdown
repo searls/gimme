@@ -60,9 +60,9 @@ You can also specify how many times a specific invocation should have occurred (
     
     verify(double,2).equal?(:fruit)
     
-### Matchers
+### Argument Matchers
 
-Basic argument matchers are still being developed, but it's pretty easy to make a new one, just pass `give` or `verify` object that can respond to `matches?(arg)`. 
+Gimme includes several argument matchers which can be used to control which invocations will satisfy a particular stubbing or verification.
 
 **anything**
 
@@ -89,6 +89,20 @@ Other matchers:
 **numeric** — matches numeric arguments 
 
 See the [cucumber feature for examples using these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
+
+#### Custom Argument Matchers
+
+It's pretty easy to roll your own argument matchers as well. All you really need to do is pass as an argument to a method stubbed by `give` or verified by `verify` an object
+that can respond to `matches?(arg)`. Maybe something like this would work (even though it'd be of questionable utility):
+
+    class Nothing
+      def matches?(arg)
+        false
+      end
+    end
+
+    give(dog).introduce_to(Nothing.new) { :meow }     #b/c Nothing.matches? always returns false, :meow will never returned by the double.
+    
 
 ### Argument Captors
 
