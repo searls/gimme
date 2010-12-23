@@ -25,6 +25,9 @@ Gimme is still in early development and a little light on features / hardening. 
 
 ## Getting started
 
+First, install the gem :
+
+    gem install gimme-double
 
 Wherever you set up your test environment, require gimme:
 

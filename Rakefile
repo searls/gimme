@@ -12,10 +12,10 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "gimme"
+  gem.name = "gimme-double"
   gem.homepage = "http://github.com/searls/gimme"
   gem.license = "MIT"
-  gem.summary = %Q{A low-specification test double library for Ruby}
+  gem.summary = %Q{gimme — a low-specification test double library for Ruby}
   gem.description = %Q{gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). }
   gem.email = "searls@gmail.com"
   gem.authors = ["Justin Searls"]
