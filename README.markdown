@@ -25,11 +25,15 @@ Gimme is still in early development and a little light on features / hardening. 
 
 ## Getting started
 
-Wherever you set up your test environment, require gimme:
+First, install the gem:
+
+    gem install gimme-double
+
+Next, wherever you set up your test environment, require gimme:
 
     require 'gimme'
 
-To create a test double, you just tell `gimme` the class (you think) your SUT will be depending on:
+Once you're in your test or spec, to create a test double you just tell `gimme` the class (you think) your SUT will be depending on:
 
     double = gimme(Object)
      
