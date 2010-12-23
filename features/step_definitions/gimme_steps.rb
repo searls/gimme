@@ -2,7 +2,7 @@ include Gimme
 METHOD_PATTERN = /([^\(]*)(\(.*\))?/
 
 Given /^a new (.*)\s?test double$/ do | type |
-  @double = type.empty? ? gimme(Object) : gimme(eval(type))
+  @double = type.empty? ? gimme : gimme(eval(type))
 end
 
 # Stubbing
@@ -64,6 +64,10 @@ end
 Then /^a (.*) is raised$/ do |error_type|
   @error.should be_a_kind_of eval(error_type)
   @error = nil
+end
+
+Then /^no error is raised$/ do
+  @error.should be nil
 end
 
 # Helpers
