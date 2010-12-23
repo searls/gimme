@@ -22,8 +22,8 @@ module Gimme
       
       @invocations[sym][args] = 1 + (@invocations[sym][args]||0)
 
-      matched_result = nil
-      @stubbings[sym].each do |stub_args,result|
+      matching_stub_block = nil
+      @stubbings[sym].each do |stub_args,stub_block|
         matching = args.size == stub_args.size
         args.each_index do |i| 
           unless args[i] == stub_args[i] || (stub_args[i].respond_to?(:matches?) && stub_args[i].matches?(args[i]))
@@ -31,11 +31,11 @@ module Gimme
             break
           end
         end        
-        matched_result = result if matching
+        matching_stub_block = stub_block if matching
       end
             
-      if matched_result
-        matched_result
+      if matching_stub_block
+        matching_stub_block.call
       elsif sym.to_s[-1,1] == '?'
         false
       else
@@ -55,7 +55,7 @@ module Gimme
       sym = MethodResolver.resolve_sent_method(@double,sym,args,@raises_no_method_error)
       
       @double.stubbings[sym] ||= {}
-      @double.stubbings[sym][args] = block.call if block
+      @double.stubbings[sym][args] = block if block
     end
   end
 
