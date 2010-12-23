@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gimme-double}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
     "features/verify_matcher_anything.feature",
     "features/verify_no_args.feature",
     "features/verify_with_args.feature",
+    "lib/gimme-double.rb",
     "lib/gimme.rb",
     "lib/gimme/captor.rb",
     "lib/gimme/matchers.rb",
