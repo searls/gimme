@@ -155,3 +155,9 @@ We cam accomplish the same thing using `verify!`:
     dog.meow
     
     verify!(dog).meow     #=> verification passes, even though gimme can't see the meow method.
+
+
+## About
+
+### Maintainers
+* [Justin Searls](http://about.emw/searls), [Pillar Technology](http://pillartechnology.com)
