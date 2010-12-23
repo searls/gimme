@@ -15,6 +15,10 @@ When /^I stub! #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
   send_and_trap_error(NoMethodError,give!(@double),method,args,result)
 end
 
+When /^I stub #{METHOD_PATTERN} to raise (.*)$/ do |method,args,error_type|
+  sendish(give(@double),method,args,"raise #{error_type}")
+end
+
 # Invoking
 
 Then /^invoking #{METHOD_PATTERN} returns (.*)$/ do |method,args,result|

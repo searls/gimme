@@ -56,6 +56,13 @@ Once you have your double, you can stub methods:
     give(double).equal?(:fruit) { false }    
     double.equal?(:ninja)               #=> true
     
+You can also stub your double to raise an exception (or really, do anything in the passed block):
+
+    dog = gimme(Dog)
+    give(dog).holler_at(:mail_man) { raise LeashLawError }
+    
+    dog.holler_at(:mail_man) # raises LeashLawError
+
 ### Verifying    
     
 You can also verify interactions with your double    

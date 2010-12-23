@@ -28,4 +28,7 @@ Feature: basic stubbing
     | walk_to(1,2)         | :park | walk_to(1,2.1)       | nil     |
     | walk_to([1,5],[2,7]) | :park | walk_to([1],[5,2,7]) | nil     |
     
-    
+  Scenario:
+    Given a new Dog test double
+    When I stub purebred? to raise StandardError
+    Then invoking purebred? raises a StandardError  
