@@ -7,7 +7,7 @@ Feature: verification of no-arg methods
   Scenario:
     Given a new test double
     But I do not invoke to_s
-    Then verifying to_s raises a Gimme::VerificationFailedError
+    Then verifying to_s raises a Gimme::Errors::VerificationFailedError
     But I can verify to_s has been invoked 0 times
 
     When I invoke to_s
