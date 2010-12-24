@@ -8,7 +8,7 @@ You can read the (possibly stale) documentation below or the (fresh) [gimme Cucu
 
 Gimme was originally named (well, for the first five hours of its life) "[Tabula Rasa](http://en.wikipedia.org/wiki/Tabula_rasa)," to very clearly indicate that it generates blank slate test doubles that lack any initial coupling with the concepts associated with specific [test double](http://xunitpatterns.com/Test%20Double.html) subtypes like mocks/stubs/fakes/spies/proxies. But in the end, "gimme" was easier to type than "tabula rasa", and I generally wanted to avoid test pattern lingo from leaking into the context and language of everybody's tests (hence no method named "stub"). 
 
-Gimme doubles are most accurately identified as test spies in [this table discriminating the types](http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html) over at Gerard Meszaros' helpful xUnit patterns repository.
+Gimme doubles are most accurately identified as [test spies](http://xunitpatterns.com/Test%20Spy.html) in [this table discriminating the types](http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html) over at Gerard Meszaros' helpful xUnit patterns repository.
 
 Gimme aims to enable you to write low-friction, low-specification tests that feel a little more like [Mockito](http://mockito.org/) than existing ruby test double libraries. Gimme should do whatever it can to help you isolate your SUT from its dependencies and then get out of your way. And if gimme can provide some fast-feedback about potential problems, it should try to do that too.
 
