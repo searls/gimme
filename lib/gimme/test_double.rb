@@ -86,7 +86,7 @@ module Gimme
       end
             
       if invoked != @times
-        raise VerificationFailedError.new("expected #{sym} to have been called with #{args}")
+        raise Errors::VerificationFailedError.new("expected #{sym} to have been called with #{args}")
       end
     end
   end
@@ -104,7 +104,9 @@ module Gimme
     end
   end
 
-  class VerificationFailedError < StandardError
+  module Errors
+    class VerificationFailedError < StandardError
+    end
   end
   
   def gimme(cls=nil)
