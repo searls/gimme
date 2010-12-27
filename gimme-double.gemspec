@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gimme-double}
-  s.version = "0.1.3"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
-  s.date = %q{2010-12-24}
+  s.date = %q{2010-12-26}
   s.description = %q{gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). }
   s.email = %q{searls@gmail.com}
   s.extra_rdoc_files = [
@@ -28,11 +28,12 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "features/argument_captors.feature",
+    "features/gimme_next.feature",
     "features/step_definitions/gimme_steps.rb",
     "features/stub_basic.feature",
     "features/stub_matchers.feature",
     "features/stub_sensible_defaults.feature",
-    "features/support/dog.rb",
+    "features/support/animals.rb",
     "features/support/env.rb",
     "features/unknown_methods.feature",
     "features/verify_matcher_anything.feature",
@@ -42,8 +43,12 @@ Gem::Specification.new do |s|
     "lib/gimme-double.rb",
     "lib/gimme.rb",
     "lib/gimme/captor.rb",
+    "lib/gimme/errors.rb",
+    "lib/gimme/gives.rb",
     "lib/gimme/matchers.rb",
-    "lib/gimme/test_double.rb"
+    "lib/gimme/method_resolver.rb",
+    "lib/gimme/test_double.rb",
+    "lib/gimme/verifies.rb"
   ]
   s.homepage = %q{http://github.com/searls/gimme}
   s.licenses = ["MIT"]
