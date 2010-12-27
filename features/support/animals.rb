@@ -44,3 +44,12 @@ end
 
 class Cat < Animal
 end
+
+class Turtle < Animal
+  def initialize(shell)
+    @shell = shell
+  end
+  
+  def swim
+  end
+end
