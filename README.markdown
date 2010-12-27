@@ -176,6 +176,42 @@ We cam accomplish the same thing using `verify!`:
     
     verify!(dog).meow     #=> verification passes, even though gimme can't see the meow method.
 
+### gimme_next
+
+To my knowledge, there isn't an established pattern or name for this next feature. Sometimes you may want your SUT to instantiate its own dependency. However, if you also want to achieve isolation from the implementation details of that dependency, you can use `gimme_next`.
+
+Take this example method from the RSpec book:
+
+    def guess(guess)
+      marker = Marker.new(@secret,guess)  
+      @output.puts '+'*marker.exact_match_count + '-'*marker.number_match_count
+    end
+
+This can be tested with gimme in isolation (meaning that a real Marker object is never instantiated or invoked) like so:
+
+    describe '#guess' do
+      let(:marker) { gimme_next(Marker) }
+      before do
+        give(marker).exact_match_count { 4 }
+        give(marker).number_match_count { 0 }                 
+
+        game.guess('1234')
+      end
+      
+      it 'instantiates a marker with the secret and guess' do
+        verify!(marker).initialize('1234','1234')
+      end
+      
+      it 'outputs the exact matches followed by the number matches' do
+        verify(output).puts('++++')
+      end      
+    end
+
+As you can see above, `gimme_next(Object)` will create a double just like `gimme()` would have, but it will also temporarily redefine the passed class's `new` method such that the next instantiation of that class (presumably by the SUT) will return the same double.* 
+
+This way we can clearly specify the SUT's interaction with the Marker class while maintaining its isolation.
+
+*Subsequent instantiations of the passed class will continue to return normal instances.
 
 ## About
 
