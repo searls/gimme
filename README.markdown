@@ -207,7 +207,7 @@ This can be tested with gimme in isolation (meaning that a real Marker object is
       end      
     end
 
-As you can see above, `gimme_next(Object)` will create a double just like `gimme()` would have, but it will also temporarily redefine the passed class's `new` method such that the next instantiation of that class (presumably by the SUT) will return the same double.* 
+As you can see above, `gimme_next(Marker)` will create a double just like `gimme()` would have, but it will also temporarily redefine the passed class's `new` method such that the next instantiation of that class (presumably by the SUT) will return the same double.* 
 
 This way we can clearly specify the SUT's interaction with the Marker class while maintaining its isolation.
 
