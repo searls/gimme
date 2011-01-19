@@ -30,7 +30,7 @@ Gimme is still in early development and a little light on features / hardening. 
 ### Setting up
 First, install the gem:
 
-    gem install gimme-double
+    gem install gimme
 
 Next, wherever you set up your test environment, require gimme:
 

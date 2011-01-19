@@ -12,7 +12,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "gimme-double"
+  gem.name = "gimme"
   gem.homepage = "http://github.com/searls/gimme"
   gem.license = "MIT"
   gem.summary = %Q{gimme — a low-specification test double library for Ruby}

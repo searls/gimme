@@ -9,9 +9,8 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
-    gherkin (2.3.2)
+    gherkin (2.3.3)
       json (~> 1.4.6)
-      term-ansicolor (~> 1.0.5)
     git (1.2.5)
     jeweler (1.5.2)
       bundler (~> 1.0.0)
@@ -19,7 +18,14 @@ GEM
       rake
     json (1.4.6)
     rake (0.8.7)
-    rspec (1.3.1)
+    rspec (2.4.0)
+      rspec-core (~> 2.4.0)
+      rspec-expectations (~> 2.4.0)
+      rspec-mocks (~> 2.4.0)
+    rspec-core (2.4.0)
+    rspec-expectations (2.4.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.4.0)
     term-ansicolor (1.0.5)
 
 PLATFORMS
