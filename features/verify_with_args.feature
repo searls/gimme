@@ -7,7 +7,7 @@ Feature: verification of argumentative methods
   Scenario: 
     Given a new test double
     But I do not invoke equal?(:pants)
-    Then verifying equal?(:pants) raises a Gimme::VerificationFailedError
+    Then verifying equal?(:pants) raises a Gimme::Errors::VerificationFailedError
     But I can verify equal?(:pants) has been invoked 0 times
 
     When I invoke equal?(:pants)

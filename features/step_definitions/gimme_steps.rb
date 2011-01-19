@@ -1,9 +1,16 @@
 include Gimme
 METHOD_PATTERN = /([^\(]*)(\(.*\))?/
 
+# Creating
+
 Given /^a new (.*)\s?test double$/ do | type |
-  @double = type.empty? ? gimme(Object) : gimme(eval(type))
+  @double = type.empty? ? gimme : gimme(eval(type))
 end
+
+Given /^I create a double via gimme_next\((.*)\)$/ do |klass|
+  @double = gimme_next(eval(klass))
+end
+
 
 # Stubbing
 
@@ -13,6 +20,10 @@ end
 
 When /^I stub! #{METHOD_PATTERN} to return (.*)$/ do |method,args,result|
   send_and_trap_error(NoMethodError,give!(@double),method,args,result)
+end
+
+When /^I stub #{METHOD_PATTERN} to raise (.*)$/ do |method,args,error_type|
+  sendish(give(@double),method,args,"raise #{error_type}")
 end
 
 # Invoking
@@ -66,7 +77,21 @@ Then /^a (.*) is raised$/ do |error_type|
   @error = nil
 end
 
-# Helpers
+Then /^no error is raised$/ do
+  @error.should be nil
+end
+
+# Gimme Next
+
+When /^my SUT tries creating a real (.*)$/ do |instantiation|
+  @real = eval(instantiation)
+end
+
+Then /^both the double and real object reference the same object$/ do
+  @real.__id__ == @double.__id__
+end
+
+# private
 
 def send_and_trap_error(error_type,target,method,args=nil,result=nil)
   begin 
