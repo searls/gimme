@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gimme}
-  s.version = "0.1.5"
+  s.version = "0.1.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
@@ -28,21 +28,27 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "features/argument_captors.feature",
+    "features/gimme_next.feature",
     "features/step_definitions/gimme_steps.rb",
     "features/stub_basic.feature",
     "features/stub_matchers.feature",
     "features/stub_sensible_defaults.feature",
+    "features/support/animals.rb",
     "features/support/env.rb",
     "features/unknown_methods.feature",
     "features/verify_matcher_anything.feature",
     "features/verify_no_args.feature",
     "features/verify_with_args.feature",
-    "gimme-double.gemspec",
+    "gimme.gemspec",
     "lib/gimme-double.rb",
     "lib/gimme.rb",
     "lib/gimme/captor.rb",
+    "lib/gimme/errors.rb",
+    "lib/gimme/gives.rb",
     "lib/gimme/matchers.rb",
-    "lib/gimme/test_double.rb"
+    "lib/gimme/method_resolver.rb",
+    "lib/gimme/test_double.rb",
+    "lib/gimme/verifies.rb"
   ]
   s.homepage = %q{http://github.com/searls/gimme}
   s.licenses = ["MIT"]
