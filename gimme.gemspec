@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gimme}
-  s.version = "0.1.0"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
-  s.date = %q{2010-12-23}
+  s.date = %q{2011-01-18}
   s.description = %q{gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). }
   s.email = %q{searls@gmail.com}
   s.extra_rdoc_files = [
@@ -32,12 +32,13 @@ Gem::Specification.new do |s|
     "features/stub_basic.feature",
     "features/stub_matchers.feature",
     "features/stub_sensible_defaults.feature",
-    "features/support/dog.rb",
     "features/support/env.rb",
     "features/unknown_methods.feature",
     "features/verify_matcher_anything.feature",
     "features/verify_no_args.feature",
     "features/verify_with_args.feature",
+    "gimme-double.gemspec",
+    "lib/gimme-double.rb",
     "lib/gimme.rb",
     "lib/gimme/captor.rb",
     "lib/gimme/matchers.rb",
@@ -46,11 +47,10 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/searls/gimme}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
-  s.summary = %q{A low-specification test double library for Ruby}
+  s.rubygems_version = %q{1.4.2}
+  s.summary = %q{gimme — a low-specification test double library for Ruby}
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
