@@ -104,10 +104,10 @@ Matchers can be used when both stubbing and verifying a method. To verify on any
     
 Other matchers:    
     
-**is_a(class)** — matches any arguments that are `kind_of?` the provided class
-**any(class)** — same as `is_a`, but also matches nil
-**boolean** — matches true or false arguments
-**numeric** — matches numeric arguments 
+* **is_a(class)** — matches any arguments that are `kind_of?` the provided class
+* **any(class)** — same as `is_a`, but also matches nil
+* **boolean** — matches true or false arguments
+* **numeric** — matches numeric arguments 
 
 See the [cucumber feature for examples using these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
 
