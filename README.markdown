@@ -4,6 +4,8 @@ Gimme is a very lightweight test double library for ruby. Written to be an opini
 
 You can read the (possibly stale) documentation below or the (fresh) [gimme Cucumber features on Relish](http://relishapp.com/searls/gimme)
 
+And here's a [blog post outlining the case for gimme](http://dougu.tumblr.com/post/6144302027/whats-wrong-with-rubys-test-doubles).
+
 ## Basics (or "What does it Gimme?" ... har.)
 
 Gimme was originally named (well, for the first five hours of its life) "[Tabula Rasa](http://en.wikipedia.org/wiki/Tabula_rasa)," to very clearly indicate that it generates blank slate test doubles that lack any initial coupling with the concepts associated with specific [test double](http://xunitpatterns.com/Test%20Double.html) subtypes like mocks/stubs/fakes/spies/proxies. But in the end, "gimme" was easier to type than "tabula rasa", and I generally wanted to avoid test pattern lingo from leaking into the context and language of everybody's tests (hence no method named "stub"). 
