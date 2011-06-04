@@ -1,6 +1,9 @@
 module Gimme
   class BlankSlate
+    warning_level = $VERBOSE
+    $VERBOSE = nil
     instance_methods.each { |m| undef_method m unless m =~ /^__/ }
+    $VERBOSE = warning_level
   end
 
   class TestDouble < BlankSlate
