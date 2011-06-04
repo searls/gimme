@@ -15,7 +15,7 @@ module Gimme
         true
       end
     end
-  
+
     def capture(captor)
       Capture.new(captor)
     end
