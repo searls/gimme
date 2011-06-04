@@ -14,7 +14,7 @@ module Gimme
     def anything
       Gimme::Matchers::Anything.new
     end
-    
+
    class IsA < Matcher
       def initialize(cls)
         @cls = cls
@@ -32,11 +32,11 @@ module Gimme
       def matches?(arg)
         arg == nil || arg.kind_of?(@cls)
       end
-    end    
+    end
     def any(cls)
       Gimme::Matchers::Any.new(cls)
-    end    
-    
+    end
+
     class Numeric < Matcher
       def matches?(arg)
         arg.kind_of?(Fixnum) || arg.kind_of?(Numeric) || arg.kind_of?(Float)
@@ -44,12 +44,12 @@ module Gimme
     end
     def numeric
       Gimme::Matchers::Numeric.new
-    end    
-    
+    end
+
     class Boolean < Matcher
       def matches?(arg)
         arg.kind_of?(TrueClass) || arg.kind_of?(FalseClass)
-      end      
+      end
     end
     def boolean
       Gimme::Matchers::Boolean.new
