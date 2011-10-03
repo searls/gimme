@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'gimme'
 require 'rspec/given'
 

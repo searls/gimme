@@ -7,11 +7,12 @@ group :development do
   gem "jeweler", "~> 1.5.2"
   gem "rspec"
   gem "rspec-given"
-  gem 'guard-rspec'
+  gem "guard-rspec", :require => false
   gem "cucumber"
-  gem 'guard-cucumber'
+  gem "guard-cucumber", :require => false
+  gem "simplecov", :require => false
   if RUBY_PLATFORM =~ /darwin/i
-    gem 'growl_notify'
-    gem 'rb-fsevent', :require => false
+    gem "growl_notify"
+    gem "rb-fsevent", :require => false
   end
 end

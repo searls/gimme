@@ -15,7 +15,7 @@ describe Gimme::Matchers do
 
   describe Matcher do
     context "a plain, default matcher" do
-      Given(:matcher) { Matcher.new }
+      Given(:matcher) { Gimme::Matchers::Matcher.new }
       Then { matcher.should_not match "anything" }
     end
   end
