@@ -5,6 +5,8 @@ require 'gimme/gives'
 require 'gimme/verifies'
 require 'gimme/matchers'
 require 'gimme/captor'
+require 'gimme/rspec_adapter'
 
 include Gimme
 include Gimme::Matchers
+
