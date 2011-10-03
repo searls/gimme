@@ -8,8 +8,10 @@ group :development do
   gem "rspec"
   gem "rspec-given"
   gem 'guard-rspec'
-  gem 'guard-cucumber'
-  gem 'rb-fsevent'
-  gem 'growl_notify'
   gem "cucumber"
+  gem 'guard-cucumber'
+  if RUBY_PLATFORM =~ /darwin/i
+    gem 'growl_notify'
+    gem 'rb-fsevent', :require => false
+  end
 end
