@@ -94,7 +94,7 @@ end
 # private
 
 def send_and_trap_error(error_type,target,method,args=nil,result=nil)
-  begin 
+  begin
     sendish(target,method,args,result)
   rescue error_type => e
     @error = e
