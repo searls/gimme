@@ -50,6 +50,18 @@ describe Gimme::Verifies do
       When(:result) { lambda { verifier.eat } }
       Then { result.should raise_error NoMethodError }
     end
+
+    context "a satisfied argument matcher" do
+      Given { double.ferment(5) }
+      When(:result) { lambda { verifier.ferment(numeric) } }
+      Then { result.should_not raise_error }
+    end
+
+    context "an unsatisifed argument matcher" do
+      Given { double.ferment("True") }
+      When(:result) { lambda { verifier.ferment(boolean) } }
+      Then { result.should raise_error Errors::VerificationFailedError }
+    end
   end
 
   shared_examples_for "an overridden verifier" do
