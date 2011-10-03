@@ -15,7 +15,7 @@ module Gimme
       Gimme::Matchers::Anything.new
     end
 
-   class IsA < Matcher
+    class IsA < Matcher
       def initialize(cls)
         @cls = cls
       end
