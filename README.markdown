@@ -1,6 +1,6 @@
 # Gimme
 
-Gimme is a very lightweight test double library for ruby. Written to be an opinionated (but not noisy) means to facilitate test-driving by enabling the author to specifying only what matters. But if could only feed Google one thing at this point, it would be: "[Mockito](http://mockito.org/) for Ruby"
+Gimme is a very lightweight test double library for ruby. Written to be an opinionated (but not noisy) means to facilitate test-driving by enabling the author to specify only what she cares about. If I could only feed Google one thing at this point, it would be: "[Mockito](http://mockito.org/) for Ruby"
 
 You can read the (possibly stale) documentation below or the (fresh) [gimme Cucumber features on Relish](http://relishapp.com/searls/gimme)
 
