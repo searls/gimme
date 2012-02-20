@@ -27,7 +27,12 @@ module Gimme
       end
 
       if invoked != @times
-        raise Errors::VerificationFailedError.new("expected #{sym} to have been called with #{args}")
+        call_history = []
+        @double.invocations.each { |sym, hist| call_history << "\t#{sym}"
+          hist.each { |args,count| call_history << "\t\twas called #{count} times with the following arguments #{args}" }
+        }
+        history = call_history.join("\n")
+        raise Errors::VerificationFailedError.new("expected #{sym} to have been called with #{args}\nWhat has happened\n#{history}")
       end
     end
   end

@@ -23,7 +23,7 @@ describe Gimme::Verifies do
     context "invoked with incorrect args" do
       Given { test_double.ferment(5) }
       When(:result) { lambda { verifier.ferment(4) } }
-      Then { result.should raise_error Errors::VerificationFailedError }
+      Then { result.should raise_error Errors::VerificationFailedError, "expected ferment to have been called with [4]\nWhat has happened\n\tferment\n\t\twas called 1 times with the following arguments [5]" }
     end
 
     context "invoked too few times" do
@@ -94,5 +94,7 @@ describe Gimme::Verifies do
       Given(:verifier) { verify!(test_double) }
     end
   end
+
+
 
 end
