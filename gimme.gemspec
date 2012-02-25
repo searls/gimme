@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.version = "0.1.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Justin Searls"]
-  s.date = %q{2011-06-04}
+  s.authors = [%q{Justin Searls}]
+  s.date = %q{2012-02-25}
   s.description = %q{gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). }
   s.email = %q{searls@gmail.com}
   s.extra_rdoc_files = [
@@ -18,10 +18,11 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".bundle/config",
     ".document",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
+    "Guardfile",
     "LICENSE.txt",
     "README.markdown",
     "README.rdoc",
@@ -47,38 +48,73 @@ Gem::Specification.new do |s|
     "lib/gimme/gives.rb",
     "lib/gimme/matchers.rb",
     "lib/gimme/method_resolver.rb",
+    "lib/gimme/rspec_adapter.rb",
     "lib/gimme/test_double.rb",
-    "lib/gimme/verifies.rb"
+    "lib/gimme/verifies.rb",
+    "spec/gimme/captor_spec.rb",
+    "spec/gimme/errors_spec.rb",
+    "spec/gimme/gives_spec.rb",
+    "spec/gimme/matchers_spec.rb",
+    "spec/gimme/test_double_spec.rb",
+    "spec/gimme/verifies_spec.rb",
+    "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/searls/gimme}
-  s.licenses = ["MIT"]
-  s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.2}
+  s.licenses = [%q{MIT}]
+  s.require_paths = [%q{lib}]
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{gimme — a low-specification test double library for Ruby}
+  s.test_files = [
+    "spec/gimme/captor_spec.rb",
+    "spec/gimme/errors_spec.rb",
+    "spec/gimme/gives_spec.rb",
+    "spec/gimme/matchers_spec.rb",
+    "spec/gimme/test_double_spec.rb",
+    "spec/gimme/verifies_spec.rb",
+    "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
+      s.add_development_dependency(%q<rdoc>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_development_dependency(%q<rspec>, [">= 1.3.1"])
-      s.add_development_dependency(%q<cucumber>, [">= 0.10.0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<rspec-given>, [">= 0"])
+      s.add_development_dependency(%q<guard-rspec>, [">= 0"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<guard-cucumber>, [">= 0"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<growl_notify>, [">= 0"])
+      s.add_development_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 1.3.1"])
       s.add_development_dependency(%q<cucumber>, [">= 0.10.0"])
     else
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
+      s.add_dependency(%q<rdoc>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-      s.add_dependency(%q<rspec>, [">= 1.3.1"])
-      s.add_dependency(%q<cucumber>, [">= 0.10.0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<rspec-given>, [">= 0"])
+      s.add_dependency(%q<guard-rspec>, [">= 0"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<guard-cucumber>, [">= 0"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<growl_notify>, [">= 0"])
+      s.add_dependency(%q<rb-fsevent>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 1.3.1"])
       s.add_dependency(%q<cucumber>, [">= 0.10.0"])
     end
   else
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
+    s.add_dependency(%q<rdoc>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
-    s.add_dependency(%q<rspec>, [">= 1.3.1"])
-    s.add_dependency(%q<cucumber>, [">= 0.10.0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<rspec-given>, [">= 0"])
+    s.add_dependency(%q<guard-rspec>, [">= 0"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<guard-cucumber>, [">= 0"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<growl_notify>, [">= 0"])
+    s.add_dependency(%q<rb-fsevent>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 1.3.1"])
     s.add_dependency(%q<cucumber>, [">= 0.10.0"])
   end
