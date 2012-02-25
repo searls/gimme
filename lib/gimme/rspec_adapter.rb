@@ -7,6 +7,7 @@ module Gimme
     end
 
     def teardown_mocks_for_rspec
+      Gimme.reset
     end
   end
 end

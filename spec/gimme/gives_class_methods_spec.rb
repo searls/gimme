@@ -26,17 +26,17 @@ describe Gimme::GivesClassMethods do
     end
   end
 
-  # context "using the class API" do
-  #   Given(:subject) { Bunny }
-  #
-  #   it_behaves_like "a normal class method stubbing" do
-  #     Given(:gives) { GivesClassMethods.new(subject) }
-  #   end
-  #
-  #   it_behaves_like "an overridden class method stubbing" do
-  #     Given(:gives) { GivesClassMethods.new(subject) }
-  #   end
-  # end
+  context "using the class API" do
+    Given(:subject) { Bunny }
+  
+    it_behaves_like "a normal class method stubbing" do
+      Given(:gives) { GivesClassMethods.new(subject) }
+    end
+  
+    it_behaves_like "an overridden class method stubbing" do
+      Given(:gives) { GivesClassMethods.new(subject) }
+    end
+  end
 
   context "using the gimme DSL" do
     Given(:subject) { Bunny }
