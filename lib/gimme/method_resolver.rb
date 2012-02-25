@@ -2,7 +2,7 @@ module Gimme
 
   class MethodResolver
     def self.resolve_sent_method(double,sym,args,raises_no_method_error=true)
-      cls = double.cls
+      cls = double.kind_of?(Class) ? double : double.cls
       sym = args.shift if sym == :send
       if cls && raises_no_method_error
         if cls.private_methods.include?(named(sym))
