@@ -27,12 +27,12 @@ module Gimme
       end
 
       if invoked != @times
-        msg = "expected #{@double.cls.to_s}##{sym} to have been called with arguments [ #{args} ]"
+        msg = "expected #{@double.cls.to_s}##{sym} to have been called with arguments #{args}"
         if !@double.invocations[sym] || @double.invocations[sym].empty?
           msg << "\n  but was never called"
         else
           msg = @double.invocations[sym].inject msg do |memo, actual|
-            memo + "\n  was actually called #{actual[1]} times with arguments [ #{actual[0]} ]"
+            memo + "\n  was actually called #{actual[1]} times with arguments #{actual[0]}"
           end
         end
 
