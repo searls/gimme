@@ -18,12 +18,19 @@ describe Gimme::Verifies do
     context "never invoked" do
       When(:result) { lambda { verifier.ferment } }
       Then { result.should raise_error Errors::VerificationFailedError }
+      Then do result.should raise_error Errors::VerificationFailedError,
+        "expected Natto#ferment to have been called with arguments [  ]\n"+
+        "  but was never called"
+      end
     end
 
     context "invoked with incorrect args" do
       Given { test_double.ferment(5) }
       When(:result) { lambda { verifier.ferment(4) } }
-      Then { result.should raise_error Errors::VerificationFailedError, "expected ferment to have been called with [4]\nWhat has happened\n\tferment\n\t\twas called 1 times with the following arguments [5]" }
+      Then do result.should raise_error Errors::VerificationFailedError,
+        "expected Natto#ferment to have been called with arguments [ 4 ]\n"+
+        "  was actually called 1 times with arguments [ 5 ]"
+      end
     end
 
     context "invoked too few times" do
