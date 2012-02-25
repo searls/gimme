@@ -33,6 +33,19 @@ describe Gimme::Verifies do
       end
     end
 
+    context "invoked incorrectly a whole bunch" do
+      Given { test_double.ferment(5) }
+      Given { test_double.ferment(5) }
+      Given { test_double.ferment(3) }
+      When(:result) { lambda { verifier.ferment(4) } }
+      Then do result.should raise_error Errors::VerificationFailedError,
+        /.*  was actually called 2 times with arguments #{Regexp.escape([5].to_s)}.*/m
+      end
+      Then do result.should raise_error Errors::VerificationFailedError,
+        /.*  was actually called 1 times with arguments #{Regexp.escape([3].to_s)}.*/m
+      end
+    end
+
     context "invoked too few times" do
       Given(:verifier) { Verifies.new(test_double,3) }
       Given { 2.times { test_double.ferment } }
