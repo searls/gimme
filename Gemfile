@@ -14,7 +14,7 @@ group :development, :test do
   gem "guard-cucumber", :require => false
   gem "simplecov", :require => false
   if RUBY_PLATFORM =~ /darwin/i
-    gem "growl_notify"
+    gem "growl"
     gem "rb-fsevent", :require => false
   end
 end
