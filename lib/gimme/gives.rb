@@ -1,16 +1,13 @@
 module Gimme
-  @@class_stubbings_to_nuke = []
+  @@stuff_to_do_on_reset = []
+
+  def self.on_reset (&blk)
+    @@stuff_to_do_on_reset << blk
+  end
 
   def self.reset
-    @@class_stubbings_to_nuke.delete_if do |stubbing|
-      cls = stubbing[:cls]
-      meta = (class << stubbing[:cls]; self; end)
-      if cls.respond_to?(stubbing[:hidden_method_name])
-        meta.instance_eval { define_method stubbing[:method_name], cls.method(stubbing[:hidden_method_name]) }
-        meta.send(:remove_method, stubbing[:hidden_method_name])
-      else
-        meta.send(:remove_method, stubbing[:method_name])
-      end
+    @@stuff_to_do_on_reset.delete_if do |stuff|
+      stuff.call
       true
     end
   end
@@ -38,19 +35,25 @@ module Gimme
     end
 
     def method_missing(method, *args, &block)
-      method = MethodResolver.resolve_sent_method(meta_for(@cls),method,args,@raises_no_method_error)
-      if @cls.respond_to?(method) && !@cls.respond_to?(hidden_name_for(method))
-        meta_for(@cls).send(:alias_method, hidden_name_for(method), method)
+      cls = @cls
+      meta_class = meta_for(@cls)
+      method = MethodResolver.resolve_sent_method(meta_class,method,args,@raises_no_method_error)
+      hidden_method_name = hidden_name_for(method)
+
+      if @cls.respond_to?(method) && !@cls.respond_to?(hidden_method_name)
+        meta_class.send(:alias_method, hidden_method_name, method)
       end
-      meta_for(@cls).instance_eval { define_method method, &block if block }
+      meta_class.instance_eval { define_method method, &block if block }
 
-      @@class_stubbings_to_nuke << {
-        :cls => @cls,
-        :meta => meta_for(@cls),
-        :method_name => method,
-        :hidden_method_name => hidden_name_for(method)
-      }
-
+      Gimme.on_reset do
+        if cls.respond_to?(hidden_method_name)
+          meta_class.instance_eval { define_method method, cls.method(hidden_method_name) }
+          meta_class.send(:remove_method, hidden_method_name)
+        else
+          meta_class.send(:remove_method, method)
+        end
+      end
+      
       #@double.stubbings[sym] ||= {}
       #@double.stubbings[sym][args] = block if block
     end
