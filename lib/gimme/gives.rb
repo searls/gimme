@@ -51,10 +51,7 @@ module Gimme
       #TODO this will be redundantly overwritten
       meta_class.instance_eval do
         define_method method do |*actual_args|
-          stubbing = @@stubbings[method][actual_args]
-          if stubbing
-            stubbing.call
-          end
+          InvokesSatisfiedStubbing.new(@@stubbings).invoke(method, actual_args)
         end
       end
 
