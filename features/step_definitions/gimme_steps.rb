@@ -26,7 +26,21 @@ When /^I stub #{METHOD_PATTERN} to raise (.*)$/ do |method,args,error_type|
   sendish(give(@double),method,args,"raise #{error_type}")
 end
 
-# Invoking
+## class stubbing
+Given /^the (.*) class$/ do |cls|
+  @double = eval(cls)
+end
+
+When /^I reset Gimme$/ do
+  Gimme.reset
+end
+
+Then /^#{METHOD_PATTERN} no longer returns (.*)$/ do |method,args,result|
+  sendish(@double,method,args).should_not == eval(result)
+end
+
+
+# stubbing invocation
 
 Then /^invoking #{METHOD_PATTERN} returns (.*)$/ do |method,args,result|
   sendish(@double,method,args).should == eval(result)
