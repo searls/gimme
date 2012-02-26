@@ -8,7 +8,7 @@ And here's a [blog post outlining the case for gimme](http://searls.test-double.
 
 ## Basics (or "What does it Gimme?" ... har.)
 
-Gimme was originally named (well, for the first five hours of its life) "[Tabula Rasa](http://en.wikipedia.org/wiki/Tabula_rasa)," to very clearly indicate that it generates blank slate test doubles that lack any initial coupling with the concepts associated with specific [test double](http://xunitpatterns.com/Test%20Double.html) subtypes like mocks/stubs/fakes/spies/proxies. But in the end, "gimme" was easier to type than "tabula rasa", and I generally wanted to avoid test pattern lingo from leaking into the context and language of everybody's tests (hence no method named "stub"). 
+Gimme was originally named (well, for the first five hours of its life) "[Tabula Rasa](http://en.wikipedia.org/wiki/Tabula_rasa)," to very clearly indicate that it generates blank slate test doubles that lack any initial coupling with the concepts associated with specific [test double](http://xunitpatterns.com/Test%20Double.html) subtypes like mocks/stubs/fakes/spies/proxies. But in the end, "gimme" was easier to type than "tabula rasa", and I generally wanted to avoid test pattern lingo from leaking into the context and language of everybody's tests (hence no method named "stub").
 
 Gimme doubles are most accurately identified as [test spies](http://xunitpatterns.com/Test%20Spy.html) in [this table discriminating the types](http://xunitpatterns.com/Mocks,%20Fakes,%20Stubs%20and%20Dummies.html) over at Gerard Meszaros' helpful xUnit patterns repository.
 
@@ -44,35 +44,35 @@ Once you're in your test or spec, to create a test double.
 If you know what what class your SUT will be depending on, you can specify it:
 
     double = gimme(Object)
-    
+
 Or you could just create a generic double can stub/verify any method you need:
 
     double = gimme()
-     
-### Stubbing     
-     
+
+### Stubbing
+
 Once you have your double, you can stub methods:
 
     give(double).to_s { 'Pants' }
     double.to_s                         #=> 'Pants'
-    
+
     give(double).equal?(:ninja) { true }
-    give(double).equal?(:fruit) { false }    
+    give(double).equal?(:fruit) { false }
     double.equal?(:ninja)               #=> true
-    
+
 You can also stub your double to raise an exception (or really, do anything in the passed block):
 
     dog = gimme(Dog)
     give(dog).holler_at(:mail_man) { raise LeashLawError }
-    
+
     dog.holler_at(:mail_man) # raises LeashLawError
 
-### Verifying    
-    
-You can also verify interactions with your double    
+### Verifying
+
+You can also verify interactions with your double
 
     double.equal?(:fruit)
-    
+
     verify(double).equal?(:fruit)       # passes verification (read: does nothing)
     verify(double).equal?(:what_the)    # fails verification (raises a Gimme::VerifyFailedError)
 
@@ -80,9 +80,9 @@ You can also specify how many times a specific invocation should have occurred (
 
     double.equal?(:fruit)
     double.equal?(:fruit)
-    
+
     verify(double,2).equal?(:fruit)
-    
+
 ### Using Argument Matchers
 
 Gimme includes several argument matchers which can be used to control which invocations will satisfy a particular stubbing or verification.
@@ -92,24 +92,24 @@ Gimme includes several argument matchers which can be used to control which invo
 Replacing an argument with `anything` will instantiate a `Gimme::Matchers::Anything` matcher, which always returns true, regardless of what gets passed in.
 
     give(dog).walk_to(anything,5) { 'Park' }
-    
+
     walk_to(3,5)          #=> 'Park'
     walk_to('pants',5)    #=> 'Park'
-    walk_to(nil,5)        #=> 'Park'        
+    walk_to(nil,5)        #=> 'Park'
     walk_to(3,5.1)        #=> nil
-        
+
 Matchers can be used when both stubbing and verifying a method. To verify on anything, you could:
 
     dog.holler_at(true)
-    
-    verify(dog).holler_at(anything) #=> passes verification    
-    
-Other matchers:    
-    
+
+    verify(dog).holler_at(anything) #=> passes verification
+
+Other matchers:
+
 * **is_a(class)** — matches any arguments that are `kind_of?` the provided class
 * **any(class)** — same as `is_a`, but also matches nil
 * **boolean** — matches true or false arguments
-* **numeric** — matches numeric arguments 
+* **numeric** — matches numeric arguments
 
 See the [cucumber feature for examples using these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
 
@@ -125,7 +125,7 @@ that can respond to `matches?(arg)`. Maybe something like this would work (even 
     end
 
     give(dog).introduce_to(Nothing.new) { :meow }     #b/c Nothing.matches? always returns false, :meow will never returned by the double.
-    
+
 
 ### Using Argument Captors
 
@@ -140,23 +140,23 @@ In cases like these, a captor can be used to "capture" the real argument value t
 
     #act
     sut.submit_query_for_string("find dogs")
-    
+
     #assert
     verify(searches_system).execute(capture(query_captor))
     query_captor.value.table_name.should == "Dogs"
 
-    
+
 ### Suppressing NoMethodError
 
 You may be reading this section because you got this message:
 
-    The Test Double of <Class Name> may not know how to respond to the '<Method Name>' method. 
+    The Test Double of <Class Name> may not know how to respond to the '<Method Name>' method.
       If you're confident that a real Kernel will know how to respond to '<Method Name>', then you can
       invoke give! or verify! to suppress this error.
-    
+
 Whenever you stub or verify a method against a test double on a class, gimme will first verify that the method can be found on the class being
 doubled. Since the vast majority of methods can be verified in this way, this default behavior is designed to provide fast failure.
-This can be really handy, whether the cause is as simple as a transcription error of a method name from irb or as convoluted as an incorrect version of a dependency that lacks the method you expected. 
+This can be really handy, whether the cause is as simple as a transcription error of a method name from irb or as convoluted as an incorrect version of a dependency that lacks the method you expected.
 
 However, because classes can be reopened and edited at runtime, often you'll outsmart gimme by knowing that a particular
 method *will* be available on the class being doubled, even though it isn't *right now*.
@@ -167,15 +167,15 @@ Here's an example where our Dog is again being doubled to facilitate some test, 
 
     dog = gimme(Dog)
     give!(dog).meow { :purr }
-    
+
     dog.meow              #=> :purr
-    
+
 We cam accomplish the same thing using `verify!`:
 
     dog = gimme(Dog)
-    
+
     dog.meow
-    
+
     verify!(dog).meow     #=> verification passes, even though gimme can't see the meow method.
 
 ### gimme_next
@@ -185,7 +185,7 @@ To my knowledge, there isn't an established pattern or name for this next featur
 Take this example method from the RSpec book:
 
     def guess(guess)
-      marker = Marker.new(@secret,guess)  
+      marker = Marker.new(@secret,guess)
       @output.puts '+'*marker.exact_match_count + '-'*marker.number_match_count
     end
 
@@ -195,21 +195,21 @@ This can be tested with gimme in isolation (meaning that a real Marker object is
       let(:marker) { gimme_next(Marker) }
       before do
         give(marker).exact_match_count { 4 }
-        give(marker).number_match_count { 0 }                 
+        give(marker).number_match_count { 0 }
 
         game.guess('1234')
       end
-      
+
       it 'instantiates a marker with the secret and guess' do
         verify!(marker).initialize('1234','1234')
       end
-      
+
       it 'outputs the exact matches followed by the number matches' do
         verify(output).puts('++++')
-      end      
+      end
     end
 
-As you can see above, `gimme_next(Marker)` will create a double just like `gimme()` would have, but it will also temporarily redefine the passed class's `new` method such that the next instantiation of that class (presumably by the SUT) will return the same double.* 
+As you can see above, `gimme_next(Marker)` will create a double just like `gimme()` would have, but it will also temporarily redefine the passed class's `new` method such that the next instantiation of that class (presumably by the SUT) will return the same double.*
 
 This way we can clearly specify the SUT's interaction with the Marker class while maintaining its isolation.
 
@@ -218,4 +218,4 @@ This way we can clearly specify the SUT's interaction with the Marker class whil
 ## About
 
 ### Maintainers
-* [Justin Searls](http://about.emw/searls), [Pillar Technology](http://pillartechnology.com)
+* [Justin Searls](http://about.emw/searls), [test double](http://test-double.com)
