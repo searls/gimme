@@ -1,8 +1,16 @@
 module Gimme
 
   class MethodResolver
+    def self.resolve_class_method(cls,sym,args,raises_no_method_error=true)
+      resolve_method(cls,sym,args,raises_no_method_error)
+    end
+
     def self.resolve_sent_method(double,sym,args,raises_no_method_error=true)
-      cls = double.kind_of?(Class) ? double : double.cls
+      cls = double.cls
+      resolve_method(cls,sym,args,raises_no_method_error)
+    end
+
+    def self.resolve_method(cls,sym,args,raises_no_method_error=true)
       sym = args.shift if sym == :send
       if cls && raises_no_method_error
         if cls.private_methods.include?(named(sym))

@@ -37,7 +37,7 @@ module Gimme
     def method_missing(method, *args, &block)
       cls = @cls
       meta_class = meta_for(@cls)
-      method = MethodResolver.resolve_sent_method(meta_class,method,args,@raises_no_method_error)
+      method = MethodResolver.resolve_class_method(meta_class,method,args,@raises_no_method_error)
       hidden_method_name = hidden_name_for(method)
 
       if @cls.respond_to?(method) && !@cls.respond_to?(hidden_method_name)
@@ -53,7 +53,7 @@ module Gimme
           meta_class.send(:remove_method, method)
         end
       end
-      
+
       #@double.stubbings[sym] ||= {}
       #@double.stubbings[sym][args] = block if block
     end
