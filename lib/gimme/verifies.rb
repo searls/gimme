@@ -9,7 +9,7 @@ module Gimme
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(@double,sym,args,@raises_no_method_error)
+      sym = ResolvesMethods.new(@double.cls,sym,args).resolve(@raises_no_method_error)
 
       #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
       invoked = 0

@@ -18,7 +18,7 @@ module Gimme
     end
 
     def method_missing(sym, *args, &block)
-      sym = MethodResolver.resolve_sent_method(self,sym,args,false)
+      sym = ResolvesMethods.new(self.cls,sym,args).resolve(false)
 
       @invocations[sym] ||= {}
       @stubbings[sym] ||= {}
