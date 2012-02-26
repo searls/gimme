@@ -4,15 +4,32 @@ describe Gimme::Gives do
   class Bunny
     def nibble
     end
+
+    def eat(food)
+    end
   end
 
   shared_examples_for "a normal stubbing" do
-    context "stubbing an existing method" do
-      When { gives.nibble() { "nom" } }
-      Then { subject.nibble.should == "nom" }
+    describe "stubbing an existing method" do
+      context "no args" do
+        When { gives.nibble() { "nom" } }
+        Then { subject.nibble.should == "nom" }
+      end
+
+      context "with args" do
+        When { gives.eat("carrot") { "crunch" } }
+        Then { subject.eat("carrot").should == "crunch" }
+        Then { subject.eat("apple").should == nil }
+      end
+
+      context "with arg matchers" do
+        When { gives.eat(is_a(String)) { "yum" } }
+        Then { subject.eat("fooberry").should == "yum" }
+        Then { subject.eat(15).should == nil }
+      end
     end
 
-    context "stubbing a non-existent method" do
+    describe "stubbing a non-existent method" do
       When(:stubbing) {  lambda { gives.bark { "woof" } } }
       Then { stubbing.should raise_error NoMethodError  }
     end

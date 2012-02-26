@@ -20,7 +20,13 @@ describe Gimme::GivesClassMethods do
         When { gives.eat("carrot") { "crunch" } }
         Then { subject.eat("carrot").should == "crunch" }
         Then { subject.eat("apple").should == nil }
-        Then { lambda{ subject.eat }.should raise_error ArgumentError }
+        # Then { lambda{ subject.eat }.should raise_error ArgumentError } # <PENDING
+      end
+
+      context "with arg matchers" do
+        When { gives.eat(is_a(String)) { "yum" } }
+        Then { subject.eat("fooberry").should == "yum" }
+        Then { subject.eat(15).should == nil }
       end
 
     end
