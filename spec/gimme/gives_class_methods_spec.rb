@@ -4,18 +4,32 @@ describe Gimme::GivesClassMethods do
   class Bunny
     def self.nibble
     end
+
+    def self.eat(food)
+    end
   end
 
   shared_examples_for "a normal class method stubbing" do
-    context "stubbing an existing method" do
-      When { gives.nibble() { "nom" } }
-      Then { subject.nibble.should == "nom" }
+    describe "stubbing an existing method" do
+      context "no args" do
+        When { gives.nibble() { "nom" } }
+        Then { subject.nibble.should == "nom" }
+      end
+
+      context "with args" do
+        When { gives.eat("carrot") { "crunch" } }
+        Then { subject.eat("carrot").should == "crunch" }
+        Then { subject.eat("apple").should == nil }
+        Then { lambda{ subject.eat }.should raise_error ArgumentError }
+      end
+
     end
 
-    context "stubbing a non-existent class method" do
+    describe "stubbing a non-existent class method" do
       When(:stubbing) {  lambda { gives.bark { "woof" } } }
       Then { stubbing.should raise_error NoMethodError  }
     end
+
   end
 
   shared_examples_for "an overridden class method stubbing" do
@@ -28,11 +42,11 @@ describe Gimme::GivesClassMethods do
 
   context "using the class API" do
     Given(:subject) { Bunny }
-  
+
     it_behaves_like "a normal class method stubbing" do
       Given(:gives) { GivesClassMethods.new(subject) }
     end
-  
+
     it_behaves_like "an overridden class method stubbing" do
       Given(:gives) { GivesClassMethods.new(subject) }
     end
@@ -40,11 +54,11 @@ describe Gimme::GivesClassMethods do
 
   context "using the gimme DSL" do
     Given(:subject) { Bunny }
-  
+
     it_behaves_like "a normal class method stubbing" do
       Given(:gives) { give(subject) }
     end
-  
+
     it_behaves_like "an overridden class method stubbing" do
       Given(:gives) { give!(subject) }
     end
