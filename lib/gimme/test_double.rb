@@ -25,25 +25,7 @@ module Gimme
 
       @invocations[sym][args] = 1 + (@invocations[sym][args]||0)
 
-      matching_stub_block = nil
-      @stubbings[sym].each do |stub_args,stub_block|
-        matching = args.size == stub_args.size
-        args.each_index do |i|
-          unless args[i] == stub_args[i] || (stub_args[i].respond_to?(:matches?) && stub_args[i].matches?(args[i]))
-            matching = false
-            break
-          end
-        end
-        matching_stub_block = stub_block if matching
-      end
-
-      if matching_stub_block
-        matching_stub_block.call
-      elsif sym.to_s[-1,1] == '?'
-        false
-      else
-        nil
-      end
+      InvokesSatisfiedStubbing.new(@stubbings).invoke(sym, args)
     end
   end
 
