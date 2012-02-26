@@ -43,6 +43,11 @@ Cucumber::Rake::Task.new do |t|
   t.cucumber_opts = %w{--format progress}
 end
 
+Cucumber::Rake::Task.new('cucumber:wip') do |t|
+  t.cucumber_opts = %w{--format progress --wip --tags @wip}
+end
+
+
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new
 
