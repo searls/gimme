@@ -18,8 +18,9 @@ module Gimme
         meta_class.send(:alias_method, hidden_method_name, method)
       end
 
-      @@stubbings[method] ||= {}
-      @@stubbings[method][args] = block if block
+      @@stubbings[cls] ||= {}
+      @@stubbings[cls][method] ||= {}
+      @@stubbings[cls][method][args] = block if block
 
       #TODO this will be redundantly overwritten
       meta_class.instance_eval do
