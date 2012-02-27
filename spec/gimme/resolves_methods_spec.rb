@@ -43,6 +43,7 @@ module Gimme
             When(:invocation) { lambda { subject.resolve } }
             Then { invocation.should raise_error NoMethodError, /not be a great idea/ }
           end
+
         end
 
         context "set up not to raise errors" do
