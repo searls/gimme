@@ -5,7 +5,7 @@ module Gimme
     def initialize(cls)
       @cls = cls
       @raises_no_method_error = true
-      @@stubbings = {}
+      @@stubbings ||= {}
     end
 
     def method_missing(method, *args, &block)
@@ -25,7 +25,7 @@ module Gimme
       #TODO this will be redundantly overwritten
       meta_class.instance_eval do
         define_method method do |*actual_args|
-          InvokesSatisfiedStubbing.new(@@stubbings).invoke(method, actual_args)
+          InvokesSatisfiedStubbing.new(@@stubbings[cls]).invoke(method, actual_args)
         end
       end
 
