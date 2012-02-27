@@ -12,6 +12,18 @@ module Gimme
       end
     end
 
+    class Rabbit
+      def self.eat(food)
+      end
+    end
+
+    describe "two classes with similar stubbings" do
+      Given { give(Rabbit).eat("carrot") { "yum" } }
+      Given { give(Bunny).eat("carrot") { "yay" } }
+      Then { Rabbit.eat("carrot").should == "yum" }
+      Then { Bunny.eat("carrot").should == "yay" }
+    end
+
     context "using the class API" do
       Given(:subject) { Bunny }
 
