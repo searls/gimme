@@ -10,7 +10,7 @@ module Gimme
     def resolve(raises_no_method_error=true)
       @sym = @args.shift if @sym == :send
       if @cls && raises_no_method_error
-        if @cls.private_methods.include?(named(@sym))
+        if @cls.private_instance_methods.include?(named(@sym))
           raise NoMethodError.new("#{@sym} is a private method of your #{@cls} test double, so stubbing/verifying it
             might not be a great idea. If you want to try to stub or verify this method anyway, then you can
             invoke give! or verify! to suppress this error.")
