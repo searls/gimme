@@ -1,25 +1,27 @@
 require 'spec_helper'
 
-describe Gimme::TestDouble do
-  class MassiveDamage
-    def boom
-      :asplode
+module Gimme
+  describe TestDouble do
+    class MassiveDamage
+      def boom
+        :asplode
+      end
     end
-  end
 
-  describe "#gimme_next" do
-    Given(:test_double) { gimme_next(MassiveDamage) }
-    Given(:subject) { MassiveDamage.new }
+    describe "#gimme_next" do
+      Given(:test_double) { gimme_next(MassiveDamage) }
+      Given(:subject) { MassiveDamage.new }
 
-    Given { give(test_double).boom { :kaboom } }
-    When(:result) { subject.boom }
-    Then { result.should == :kaboom }
+      Given { give(test_double).boom { :kaboom } }
+      When(:result) { subject.boom }
+      Then { result.should == :kaboom }
 
-    context "subsequent uses" do
-      Given(:next_subject) { MassiveDamage.new }
-      When(:next_result) { next_subject.boom }
-      Then { next_result.should == :asplode }
+      context "subsequent uses" do
+        Given(:next_subject) { MassiveDamage.new }
+        When(:next_result) { next_subject.boom }
+        Then { next_result.should == :asplode }
+      end
     end
-  end
 
+  end
 end

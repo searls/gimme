@@ -12,6 +12,5 @@ require 'gimme/dsl'
 
 require 'gimme/rspec_adapter'
 
-include Gimme
 include Gimme::Matchers
 include Gimme::DSL

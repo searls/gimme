@@ -1,5 +1,7 @@
 require 'spec_helper'
 
-describe Gimme::Errors do
-  specify { Gimme::Errors::VerificationFailedError.kind_of? StandardError }
+module Gimme
+  describe Errors do
+    specify { Errors::VerificationFailedError.kind_of? StandardError }
+  end
 end
