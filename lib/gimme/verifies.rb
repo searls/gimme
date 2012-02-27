@@ -41,13 +41,4 @@ module Gimme
     end
   end
 
-  def verify(double,times=1)
-    Gimme::Verifies.new(double,times)
-  end
-
-  def verify!(double,times=1)
-    verify = verify(double,times)
-    verify.raises_no_method_error = false
-    verify
-  end
 end

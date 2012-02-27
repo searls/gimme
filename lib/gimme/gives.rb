@@ -15,17 +15,4 @@ module Gimme
     end
   end
 
-  def give(double)
-    if double.kind_of? Class
-      Gimme::GivesClassMethods.new(double)
-    else
-      Gimme::Gives.new(double)
-    end
-  end
-
-  def give!(double)
-    give = give(double)
-    give.raises_no_method_error = false
-    give
-  end
 end

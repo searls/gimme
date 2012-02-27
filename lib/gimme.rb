@@ -8,9 +8,10 @@ require 'gimme/matchers'
 require 'gimme/captor'
 require 'gimme/invokes_satisfied_stubbing'
 require 'gimme/reset'
+require 'gimme/dsl'
 
 require 'gimme/rspec_adapter'
 
 include Gimme
 include Gimme::Matchers
-
+include Gimme::DSL

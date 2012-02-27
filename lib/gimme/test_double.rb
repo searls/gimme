@@ -29,20 +29,4 @@ module Gimme
     end
   end
 
-  def gimme(cls=nil)
-    Gimme::TestDouble.new(cls)
-  end
-
-  def gimme_next(cls)
-    double = Gimme::TestDouble.new(cls)
-    meta_class = class << cls; self; end
-    real_new = cls.method(:new)
-    meta_class.send(:define_method,:new) do |*args|
-      double.send(:initialize,*args)
-      meta_class.send(:define_method,:new,real_new) #restore :new on the class
-      double
-    end
-    double
-  end
-
 end
