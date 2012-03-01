@@ -9,6 +9,9 @@ require 'gimme/captor'
 require 'gimme/invokes_satisfied_stubbing'
 require 'gimme/reset'
 require 'gimme/dsl'
+require 'gimme/store'
+require 'gimme/stubbing_store'
+require 'gimme/invocation_store'
 
 require 'gimme/rspec_adapter'
 
