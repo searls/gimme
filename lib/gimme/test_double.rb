@@ -8,19 +8,14 @@ module Gimme
 
   class TestDouble < BlankSlate
     attr_accessor :cls
-    attr_reader :invocations
 
     def initialize(cls=nil)
       @cls = cls
-      @invocations = {}
     end
 
     def method_missing(method, *args, &block)
       method = ResolvesMethods.new(self.cls, method, args).resolve(false)
-
-      @invocations[method] ||= {}
-      @invocations[method][args] = 1 + (@invocations[method][args]||0)
-
+      Gimme.invocations.increment(self, method, args)
       InvokesSatisfiedStubbing.new(Gimme.stubbings.get(self)).invoke(method, args)
     end
   end

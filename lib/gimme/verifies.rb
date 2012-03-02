@@ -13,8 +13,8 @@ module Gimme
 
       #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
       invoked = 0
-      if @double.invocations[sym]
-         @double.invocations[sym].each do |invoke_args,count|
+      if Gimme.invocations.get(@double, sym)
+         Gimme.invocations.get(@double, sym).each do |invoke_args,count|
            matching = args.size == invoke_args.size
            invoke_args.each_index do |i|
              unless invoke_args[i] == args[i]  || (args[i].respond_to?(:matches?) && args[i].matches?(invoke_args[i]))
@@ -28,10 +28,10 @@ module Gimme
 
       if invoked != @times
         msg = "expected #{@double.cls.to_s}##{sym} to have been called with arguments #{args}"
-        if !@double.invocations[sym] || @double.invocations[sym].empty?
+        if !Gimme.invocations.get(@double, sym) || Gimme.invocations.get(@double, sym).empty?
           msg << "\n  but was never called"
         else
-          msg = @double.invocations[sym].inject msg do |memo, actual|
+          msg = Gimme.invocations.get(@double, sym).inject msg do |memo, actual|
             memo + "\n  was actually called #{actual[1]} times with arguments #{actual[0]}"
           end
         end
