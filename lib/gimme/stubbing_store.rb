@@ -9,12 +9,9 @@ module Gimme
     end
 
   end
-  
+
   def self.stubbings
     @@stubbings ||= StubbingStore.new
-    Gimme.on_reset do
-      @@stubbings.clear
-    end
   end
-  
+
 end

@@ -9,9 +9,6 @@ module Gimme
 
   def self.invocations
     @@invocations ||= InvocationStore.new
-    Gimme.on_reset do
-      @@invocations.clear
-    end
   end
 
 end

@@ -1,4 +1,3 @@
-@wip
 Feature: stubbing class methods
 
   In order to spec code that depends on Rails or other APIs that make

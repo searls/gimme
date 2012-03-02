@@ -10,8 +10,7 @@ module Gimme
     def method_missing(sym, *args, &block)
       sym = ResolvesMethods.new(@double.cls,sym,args).resolve(@raises_no_method_error)
 
-      @double.stubbings[sym] ||= {}
-      @double.stubbings[sym][args] = block if block
+      Gimme.stubbings.set(@double, sym, args, block)
     end
   end
 

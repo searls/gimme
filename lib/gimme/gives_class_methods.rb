@@ -5,7 +5,6 @@ module Gimme
     def initialize(cls)
       @cls = cls
       @raises_no_method_error = true
-      @@stubbings ||= {}
     end
 
     def method_missing(method, *args, &block)
@@ -18,14 +17,12 @@ module Gimme
         meta_class.send(:alias_method, hidden_method_name, method)
       end
 
-      @@stubbings[cls] ||= {}
-      @@stubbings[cls][method] ||= {}
-      @@stubbings[cls][method][args] = block if block
+      Gimme.stubbings.set(cls, method, args, block)
 
       #TODO this will be redundantly overwritten
       meta_class.instance_eval do
         define_method method do |*actual_args|
-          InvokesSatisfiedStubbing.new(@@stubbings[cls]).invoke(method, actual_args)
+          InvokesSatisfiedStubbing.new(Gimme.stubbings.get(cls)).invoke(method, actual_args)
         end
       end
 
@@ -36,7 +33,6 @@ module Gimme
         else
           meta_class.send(:remove_method, method)
         end
-        @@stubbings.clear
       end
     end
 
