@@ -5,3 +5,4 @@ doc
 .yardoc
 .bundle
 pkg
+lib/driver.rb
