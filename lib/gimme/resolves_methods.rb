@@ -1,7 +1,7 @@
 module Gimme
 
   class ResolvesMethods
-    def initialize(cls,sym,args)
+    def initialize(cls, sym, args=[])
       @cls = cls
       @sym = sym
       @args = args

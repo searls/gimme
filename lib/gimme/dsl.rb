@@ -51,5 +51,10 @@ module Gimme
       SpiesOnClassMethod.new(cls).spy(method)
     end
 
+    def spy_on!(cls, method)
+      spies_on = SpiesOnClassMethod.new(cls)
+      spies_on.raises_no_method_error = false
+      spies_on.spy(method)
+    end
   end
 end

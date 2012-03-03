@@ -10,6 +10,8 @@ module Gimme
     end
 
     Given(:test_double) { gimme(Natto) }
+    Given(:double_name) { "Gimme::Natto" }
+    Given(:verifier_class) { Verifies }
 
     context "class API" do
       Given(:verifier) { Verifies.new(test_double) }

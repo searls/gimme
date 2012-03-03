@@ -15,24 +15,41 @@ module Gimme
 
   describe SpiesOnClassMethod do
     shared_examples_for "it spies on class methods" do
-      Given(:invocation) { lambda { ChairFactory.build } }
-      Then { invocation.should_not raise_error }
+      describe "normal class method spy" do
+        Given(:invocation) { lambda { ChairFactory.build } }
+        Then { invocation.should_not raise_error }
 
-      context "upon reset" do
-        When { Gimme.reset }
-        Then { invocation.should raise_error }
+        context "upon reset" do
+          When { Gimme.reset }
+          Then { invocation.should raise_error }
+        end
+
+      end
+
+      describe "imaginary class method spy" do
+        Given(:invocation) { lambda { ChairFactory.fantasy } }
+        Then { invocation.should_not raise_error }
+
+        context "upon reset" do
+          When { Gimme.reset }
+          Then { invocation.should raise_error }
+        end
       end
     end
 
     context "classical API" do
       it_behaves_like "it spies on class methods" do
-        Given { SpiesOnClassMethod.new(ChairFactory).spy(:build) }
+        subject { SpiesOnClassMethod.new(ChairFactory) }
+        Given { subject.spy(:build) }
+        Given { subject.raises_no_method_error = false }
+        Given { subject.spy(:fantasy) }
       end
     end
 
     context "gimme DSL" do
       it_behaves_like "it spies on class methods" do
         Given { spy_on(ChairFactory, :build) }
+        Given { spy_on!(ChairFactory, :fantasy) }
       end
     end
 

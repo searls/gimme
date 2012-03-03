@@ -8,8 +8,12 @@ module Gimme
       @raises_no_method_error = true
     end
 
+    def __gimme__cls
+      @double.cls
+    end
+
     def method_missing(sym, *args, &block)
-      sym = ResolvesMethods.new(@double.cls,sym,args).resolve(@raises_no_method_error)
+      sym = ResolvesMethods.new(__gimme__cls,sym,args).resolve(@raises_no_method_error)
 
       #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
       invoked = 0
@@ -27,7 +31,7 @@ module Gimme
       end
 
       if invoked != @times
-        msg = "expected #{@double.cls.to_s}##{sym} to have been called with arguments #{args}"
+        msg = "expected #{__gimme__cls.to_s}##{sym} to have been called with arguments #{args}"
         if !Gimme.invocations.get(@double, sym) || Gimme.invocations.get(@double, sym).empty?
           msg << "\n  but was never called"
         else

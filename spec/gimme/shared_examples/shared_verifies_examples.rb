@@ -11,7 +11,7 @@ module Gimme
       When(:result) { lambda { verifier.ferment } }
       Then { result.should raise_error Errors::VerificationFailedError }
       Then do result.should raise_error Errors::VerificationFailedError,
-        "expected Gimme::Natto#ferment to have been called with arguments #{[]}\n"+
+        "expected #{double_name}#ferment to have been called with arguments #{[]}\n"+
         "  but was never called"
       end
     end
@@ -20,7 +20,7 @@ module Gimme
       Given { test_double.ferment(5) }
       When(:result) { lambda { verifier.ferment(4) } }
       Then do result.should raise_error Errors::VerificationFailedError,
-        "expected Gimme::Natto#ferment to have been called with arguments #{[4]}\n"+
+        "expected #{double_name}#ferment to have been called with arguments #{[4]}\n"+
         "  was actually called 1 times with arguments #{[5]}"
       end
     end
@@ -39,14 +39,14 @@ module Gimme
     end
 
     context "invoked too few times" do
-      Given(:verifier) { Verifies.new(test_double,3) }
+      Given(:verifier) { verifier_class.new(test_double,3) }
       Given { 2.times { test_double.ferment } }
       When(:result) { lambda { verifier.ferment } }
       Then { result.should raise_error Errors::VerificationFailedError }
     end
 
     context "juggling multiple verifiers for the same method" do
-      Given(:multi_verifier) { Verifies.new(test_double,2) }
+      Given(:multi_verifier) { verifier_class.new(test_double,2) }
       Given { test_double.ferment(:panda,:sauce) }
       Given { 2.times { test_double.ferment(2,3) } }
       When(:result) do
