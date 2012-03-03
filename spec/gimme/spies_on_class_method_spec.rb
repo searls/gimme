@@ -30,11 +30,11 @@ module Gimme
       end
     end
 
-    # context "gimme DSL" do
-    #   it_behaves_like "it spies on class methods" do
-    #     Given(:spy) { spy_on(ChairFactory, :build) }
-    #   end
-    # end
+    context "gimme DSL" do
+      it_behaves_like "it spies on class methods" do
+        Given { spy_on(ChairFactory, :build) }
+      end
+    end
 
 
   end

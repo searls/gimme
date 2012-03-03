@@ -1,8 +1,8 @@
 module Gimme
   module DSL
-    
+
     # Instantiation
-    
+
     def gimme(cls=nil)
       Gimme::TestDouble.new(cls)
     end
@@ -19,7 +19,7 @@ module Gimme
       double
     end
 
-    
+
     # Stubbing
     def give(double)
       if double.kind_of? Class
@@ -45,6 +45,11 @@ module Gimme
       verify.raises_no_method_error = false
       verify
     end
-    
+
+    # Spying on class methods
+    def spy_on(cls, method)
+      SpiesOnClassMethod.new(cls).spy(method)
+    end
+
   end
 end
