@@ -9,14 +9,10 @@ module Gimme
 
     def method_missing(method, *args, &block)
       cls = @cls
-      meta_class = meta_for(@cls)
+      meta_class = (class << cls; self; end)
       method = ResolvesMethods.new(meta_class,method,args).resolve(@raises_no_method_error)
-      hidden_method_name = hidden_name_for(method)
 
-      if @cls.respond_to?(method) && !@cls.respond_to?(hidden_method_name)
-        meta_class.send(:alias_method, hidden_method_name, method)
-      end
-
+      Gimme.class_methods.set(cls, method)
       Gimme.stubbings.set(cls, method, args, block)
 
       #TODO this will be redundantly overwritten
@@ -27,24 +23,14 @@ module Gimme
       end
 
       Gimme.on_reset do
-        if cls.respond_to?(hidden_method_name)
-          meta_class.instance_eval { define_method method, cls.method(hidden_method_name) }
-          meta_class.send(:remove_method, hidden_method_name)
+        if real_method = Gimme.class_methods.get(@cls, method)
+          meta_class.instance_eval { define_method method, real_method }
         else
           meta_class.send(:remove_method, method)
         end
       end
     end
 
-    private
-
-    def meta_for(cls)
-      (class << cls; self; end)
-    end
-
-    def hidden_name_for(method)
-      "__gimme_#{method}"
-    end
   end
 
 end
