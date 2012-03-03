@@ -136,7 +136,7 @@ In cases like these, a captor can be used to "capture" the real argument value t
     #arrange
     searches_system = gimme(SearchesSystem)
     sut = QueryExecutor.new(searches_sytem)
-    query_captor = Captor.new
+    query_captor = Gimme::Captor.new
 
     #act
     sut.submit_query_for_string("find dogs")
