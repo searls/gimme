@@ -1,10 +1,14 @@
 Feature: basic usage
 
-  Gimme is designed for easy & reliable isolated unit testing of Ruby classes. This example illustrates:
-    - How to create a test double for a known class
-    - Injecting that double into the subject code we're specifying
-    - Stubbing a method on a test double to return a particular result
-    - Verify that a method on a test double was called with a particular argument
+  Gimme is designed for easy & reliable isolated unit testing of Ruby classes.
+
+  This example illustrates:
+    <ul>
+      <li>How to create a test double for a known class</li>
+      <li>Injecting that double into the subject code we're specifying</li>
+      <li>Stubbing a method on a test double to return a particular result</li>
+      <li>Verify that a method on a test double was called with a particular argument</li>
+    </ul>
 
   So say we've got a Chef who's job is to take the work product of his Apprentice
     and simmer it on the Stove. Here's how we might use gimme to write an isolation test
