@@ -75,17 +75,21 @@ Then /^I can verify! #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |metho
   sendish(verify!(@double,times.to_i),method,args)
 end
 
+When /^I spy on ([^.]*)\.(.*)$/ do |cls, method|
+  spy_on(eval(cls), method.to_sym)
+end
+
 Then /^it can verify no\-arg methods too\.$/ do
-  step "I do not invoke to_s"
-  step "verifying to_s raises a Gimme::Errors::VerificationFailedError"
-  step "I can verify to_s has been invoked 0 times"
+  step "I do not invoke yawn"
+  step "verifying yawn raises a Gimme::Errors::VerificationFailedError"
+  step "I can verify yawn has been invoked 0 times"
 
-  step "I invoke to_s"
-  step "I can verify to_s has been invoked"
-  step "I can verify to_s has been invoked 1 time"
+  step "I invoke yawn"
+  step "I can verify yawn has been invoked"
+  step "I can verify yawn has been invoked 1 time"
 
-  step "I invoke to_s"
-  step "I can verify to_s has been invoked 2 times"
+  step "I invoke yawn"
+  step "I can verify yawn has been invoked 2 times"
 end
 
 #Captors

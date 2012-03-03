@@ -16,6 +16,15 @@ class Possum
 
   def self.crawl_to(location)
   end
+
+  def yawn
+
+  end
+end
+
+class ClassyPossum
+  def self.yawn
+  end
 end
 
 class Dog < Animal
