@@ -37,7 +37,11 @@ module Gimme
 
     # Verification
     def verify(double,times=1)
-      Gimme::Verifies.new(double,times)
+      if double.kind_of? Class
+        Gimme::VerifiesClassMethods.new(double, times)
+      else
+        Gimme::Verifies.new(double,times)
+      end
     end
 
     def verify!(double,times=1)

@@ -30,16 +30,17 @@ module Gimme
       end
     end
 
-    # context "gimme DSL" do
-    #   Given { spy_on(Natto, :ferment)}
-    #
-    #   it_behaves_like "a verifier" do
-    #     Given(:verifier) { verify(test_double) }
-    #   end
-    #
-    #   it_behaves_like "an overridden verifier" do
-    #     Given(:verifier) { verify!(test_double) }
-    #   end
-    # end
+    context "gimme DSL" do
+      Given { spy_on(Natto, :ferment)}
+
+      it_behaves_like "a verifier" do
+        Given(:verifier) { verify(test_double) }
+      end
+
+      it_behaves_like "an overridden verifier" do
+        Given { spy_on!(Natto, :eat) }
+        Given(:verifier) { verify!(test_double) }
+      end
+    end
   end
 end
