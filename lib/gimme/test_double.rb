@@ -18,6 +18,18 @@ module Gimme
       Gimme.invocations.increment(self, method, args)
       InvokesSatisfiedStubbing.new(Gimme.stubbings.get(self)).invoke(method, args)
     end
+
+    def hash
+      __id__
+    end
+
+    def eql?(other)
+      __id__ == other.__id__
+    end
+
+    def ==(other)
+      eql?(other)
+    end
   end
 
 end

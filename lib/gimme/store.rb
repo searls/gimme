@@ -17,7 +17,6 @@ module Gimme
       id = double.__id__
       @store[id] ||= {}
       @store[id][method] ||= {}
-
       @store[id][method][args] = content
     end
 
