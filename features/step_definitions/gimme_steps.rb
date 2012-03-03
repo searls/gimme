@@ -75,6 +75,19 @@ Then /^I can verify! #{METHOD_PATTERN} has been invoked (\d+) times?$/ do |metho
   sendish(verify!(@double,times.to_i),method,args)
 end
 
+Then /^it can verify no\-arg methods too\.$/ do
+  step "I do not invoke to_s"
+  step "verifying to_s raises a Gimme::Errors::VerificationFailedError"
+  step "I can verify to_s has been invoked 0 times"
+
+  step "I invoke to_s"
+  step "I can verify to_s has been invoked"
+  step "I can verify to_s has been invoked 1 time"
+
+  step "I invoke to_s"
+  step "I can verify to_s has been invoked 2 times"
+end
+
 #Captors
 
 Given /^a new argument captor$/ do

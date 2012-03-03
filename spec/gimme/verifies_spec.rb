@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-class Natto
-  def ferment(beans=nil,time=nil)
-  end
-end
-
 module Gimme
+
   describe Verifies do
+    class Natto
+      def ferment(beans=nil,time=nil)
+      end
+    end
 
     Given(:test_double) { gimme(Natto) }
 
@@ -22,7 +22,7 @@ module Gimme
         When(:result) { lambda { verifier.ferment } }
         Then { result.should raise_error Errors::VerificationFailedError }
         Then do result.should raise_error Errors::VerificationFailedError,
-          "expected Natto#ferment to have been called with arguments #{[]}\n"+
+          "expected Gimme::Natto#ferment to have been called with arguments #{[]}\n"+
           "  but was never called"
         end
       end
@@ -31,7 +31,7 @@ module Gimme
         Given { test_double.ferment(5) }
         When(:result) { lambda { verifier.ferment(4) } }
         Then do result.should raise_error Errors::VerificationFailedError,
-          "expected Natto#ferment to have been called with arguments #{[4]}\n"+
+          "expected Gimme::Natto#ferment to have been called with arguments #{[4]}\n"+
           "  was actually called 1 times with arguments #{[5]}"
         end
       end

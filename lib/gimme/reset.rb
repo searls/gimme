@@ -10,7 +10,7 @@ module Gimme
     end
   end
 
-  def self.reset()
+  def self.reset
     @@stuff_to_do_on_reset.delete_if do |stuff|
       stuff.call
     end

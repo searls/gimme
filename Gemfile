@@ -11,10 +11,11 @@ group :development, :test do
   gem "jeweler", "~> 1.5.2"
   gem "rspec"
   gem "rspec-given"
-  gem "guard-rspec", :require => false
   gem "cucumber"
-  gem "guard-cucumber", :require => false
   gem "simplecov", :require => false
+
+  gem "guard-cucumber", :require => false
+  gem "guard-rspec", :require => false
   if RUBY_PLATFORM =~ /darwin/i
     gem "growl"
     gem "rb-fsevent", :require => false

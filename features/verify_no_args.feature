@@ -16,3 +16,8 @@ Feature: verification of no-arg methods
         
     When I invoke to_s
     Then I can verify to_s has been invoked 2 times
+    
+  @wip
+  Scenario: class methods
+    Given the Possum class
+    Then it can verify no-arg methods too.
