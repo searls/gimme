@@ -22,13 +22,7 @@ module Gimme
         end
       end
 
-      Gimme.on_reset do
-        if real_method = Gimme.class_methods.get(@cls, method)
-          meta_class.instance_eval { define_method method, real_method }
-        else
-          meta_class.send(:remove_method, method)
-        end
-      end
+      EnsuresClassMethodRestoration.new(@cls).ensure(method)
     end
 
   end
