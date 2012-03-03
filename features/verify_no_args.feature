@@ -17,7 +17,6 @@ Feature: verification of no-arg methods
     When I invoke yawn
     Then I can verify yawn has been invoked 2 times
 
-  @wip
   Scenario: class methods
     Given the ClassyPossum class
     When I spy on ClassyPossum.yawn
