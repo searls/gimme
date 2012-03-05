@@ -13,7 +13,7 @@ Feature: argument matchers
       <li>Defining your own matcher</li>
     </ul>
 
-  In this example, we have a Mail object with a contents attribute. A DeliversMessages object adds Mail to     
+  In this example, we have a Mail object with a contents attribute. A DeliversMessages object adds Mail to
     Recipients' mailboxes and checks off each delivery on its Checklist.
 
 
@@ -54,7 +54,22 @@ Feature: argument matchers
       end
       """
 
-  Scenario: using the is_a matcher to specify a type
+  Scenario: stubbing with argument matchers
+    Then we can use gimme to isolate the unit under test:
+      """
+      # pretend we want to ensure the #deliver function returns
+      #   whatever the Checlist#check_off method returns. We can
+      #   specify that by stubbing the check_off method
+      checklist = gimme(Checklist)
+      recipient = gimme(Recipient)
+      give(checklist).check_off(anything, anything, is_a(Time)) { "Pandas!" }
+
+      result = DeliversMessages.new(checklist).deliver("WHY HELLO GOOD SIR", recipient)
+
+      result.should == "Pandas!"
+      """
+
+  Scenario: using some built-in matchers
     Then we can use gimme to isolate the unit under test:
       """
       checklist = gimme(Checklist)
@@ -62,23 +77,11 @@ Feature: argument matchers
 
       DeliversMessages.new(checklist).deliver("WHY HELLO GOOD SIR", recipient)
 
-      #without access (or interest in) the mail object, we can just check it was of type Mail
-      verify(recipient).add_to_mailbox(is_a(Mail))
+      verify(recipient).add_to_mailbox(is_a(Mail))  #would force a Mail instance
+      verify(recipient).add_to_mailbox(any(Mail))   #would also have allowed nil
 
-      # ^-- we could have also used any(Mail) to allow the argument to have been nil, as well.
-      """
+      verify(checklist).check_off(any(String), recipient, anything) #anything matches anything
 
-  Scenario: using the anything matcher to allow for any value
-
-    Then we can use gimme to isolate the unit under test:
-      """
-      checklist = gimme(Checklist)
-      recipient = gimme(Recipient)
-
-      DeliversMessages.new(checklist).deliver("WHY HELLO GOOD SIR", recipient)
-
-      #here we check the second param exactly, but allow the third to be anything
-      verify(checklist).check_off(any(String), recipient, anything)
       """
 
   Scenario: using an argument captor to grab what was passed
@@ -102,7 +105,6 @@ Feature: argument matchers
 
       DeliversMessages.new(checklist).deliver("WHY HELLO GOOD SIR", recipient)
 
-
       class StartsWith
         def initialize(expected)
           @expected = expected
@@ -112,15 +114,9 @@ Feature: argument matchers
           actual.start_with?(@expected)
         end
       end
-
-      verify(checklist).check_off(StartsWith.new("WHY"), anything, anything)
-
-      # or, of course, you could add a more natural method for your matcher
-
       def starts_with(s)
         StartsWith.new(s)
       end
 
       verify(checklist).check_off(starts_with("WHY"), anything, anything)
-
       """
