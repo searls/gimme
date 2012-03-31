@@ -6,3 +6,4 @@ doc
 .bundle
 pkg
 lib/driver.rb
+.rbx
