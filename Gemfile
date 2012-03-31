@@ -7,8 +7,8 @@ group :development, :test do
   gem 'pry'
 
   gem 'rdoc'
+  gem 'rake'
 
-  gem "jeweler", "~> 1.5.2"
   gem "rspec"
   gem "rspec-given"
   gem "cucumber"

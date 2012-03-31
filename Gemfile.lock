@@ -13,7 +13,6 @@ GEM
     ffi (1.0.11)
     gherkin (2.9.0)
       json (>= 1.4.6)
-    git (1.2.5)
     growl (1.0.3)
     guard (1.0.0)
       ffi (>= 0.5.0)
@@ -23,10 +22,6 @@ GEM
       guard (>= 0.8.3)
     guard-rspec (0.6.0)
       guard (>= 0.10.0)
-    jeweler (1.5.2)
-      bundler (~> 1.0.0)
-      git (>= 1.2.5)
-      rake
     json (1.6.5)
     method_source (0.7.0)
     multi_json (1.1.0)
@@ -64,8 +59,8 @@ DEPENDENCIES
   growl
   guard-cucumber
   guard-rspec
-  jeweler (~> 1.5.2)
   pry
+  rake
   rb-fsevent
   rdoc
   rspec

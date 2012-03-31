@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{gimme}
+  s.name = "gimme"
   s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = [%q{Justin Searls}]
-  s.date = %q{2012-03-03}
-  s.description = %q{gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). }
-  s.email = %q{searls@gmail.com}
+  s.authors = ["Justin Searls"]
+  s.date = "2012-03-31"
+  s.description = "gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). "
+  s.email = "searls@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.markdown",
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "features/basics.feature",
+    "features/class_methods.feature",
     "features/matchers.feature",
     "features/old/argument_captors.feature",
     "features/old/gimme_next.feature",
@@ -82,27 +83,11 @@ Gem::Specification.new do |s|
     "spec/gimme/verifies_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = %q{http://github.com/searls/gimme}
-  s.licenses = [%q{MIT}]
-  s.require_paths = [%q{lib}]
-  s.rubygems_version = %q{1.8.6}
-  s.summary = %q{gimme — a low-specification test double library for Ruby}
-  s.test_files = [
-    "spec/gimme/captor_spec.rb",
-    "spec/gimme/errors_spec.rb",
-    "spec/gimme/gives_class_methods_spec.rb",
-    "spec/gimme/gives_spec.rb",
-    "spec/gimme/matchers_spec.rb",
-    "spec/gimme/resolves_methods_spec.rb",
-    "spec/gimme/rspec_adapter_spec.rb",
-    "spec/gimme/shared_examples/shared_gives_examples.rb",
-    "spec/gimme/shared_examples/shared_verifies_examples.rb",
-    "spec/gimme/spies_on_class_method_spec.rb",
-    "spec/gimme/test_double_spec.rb",
-    "spec/gimme/verifies_class_methods_spec.rb",
-    "spec/gimme/verifies_spec.rb",
-    "spec/spec_helper.rb"
-  ]
+  s.homepage = "http://github.com/searls/gimme"
+  s.licenses = ["MIT"]
+  s.require_paths = ["lib"]
+  s.rubygems_version = "1.8.10"
+  s.summary = "gimme \342\200\224\302\240a low-specification test double library for Ruby"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -110,7 +95,7 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<pry>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, [">= 0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_development_dependency(%q<rake>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
       s.add_development_dependency(%q<rspec-given>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
@@ -124,7 +109,7 @@ Gem::Specification.new do |s|
     else
       s.add_dependency(%q<pry>, [">= 0"])
       s.add_dependency(%q<rdoc>, [">= 0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+      s.add_dependency(%q<rake>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
       s.add_dependency(%q<rspec-given>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
@@ -139,7 +124,7 @@ Gem::Specification.new do |s|
   else
     s.add_dependency(%q<pry>, [">= 0"])
     s.add_dependency(%q<rdoc>, [">= 0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
+    s.add_dependency(%q<rake>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
     s.add_dependency(%q<rspec-given>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
