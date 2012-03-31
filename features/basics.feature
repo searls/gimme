@@ -16,7 +16,7 @@ Feature: basic usage
 
   Scenario:
     Given we have this existing code:
-      """
+    """
       class Apprentice
         def slice(thing)
           1000000.times.map do
@@ -37,7 +37,7 @@ Feature: basic usage
 
       class Chef
         def initialize(slicer = Apprentice.new, stove = Stove.new)
-          @slicer = slicer
+          @slicer = slicer
           @stove = stove
         end
       end
