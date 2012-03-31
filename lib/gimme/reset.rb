@@ -11,11 +11,7 @@ module Gimme
   end
 
   def self.reset
-    @@stuff_to_do_on_reset.delete_if do |stuff|
-      stuff.call
-    end
-    @@stuff_to_do_on_every_reset.each do |stuff|
-      stuff.call
-    end
+    @@stuff_to_do_on_reset.delete_if { |stuff| stuff.call || true }
+    @@stuff_to_do_on_every_reset.each { |stuff| stuff.call }
   end
 end
