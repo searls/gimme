@@ -186,7 +186,7 @@ Here's an example where our Dog is again being doubled to facilitate some test, 
 
     dog.meow              #=> :purr
 
-We cam accomplish the same thing using `verify!`:
+We can accomplish the same thing using `verify!`:
 
     dog = gimme(Dog)
 
