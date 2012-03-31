@@ -38,6 +38,22 @@ Next, wherever you set up your test environment, require gimme:
 
     require 'gimme'
 
+And if you're using RSpec, you can get doubled class methods to teardown appropriately by configuring gimme as your mock framework:
+
+``` ruby
+RSpec.configure do |config|
+  config.mock_framework = Gimme::RSpecAdapter
+end
+```
+
+If you're introducing gimme to a suite that already uses another double library, you can just as well do this:
+
+``` ruby
+after(:each) do
+  Gimme.reset
+end
+```
+
 ### Creating a double
 Once you're in your test or spec, to create a test double.
 
