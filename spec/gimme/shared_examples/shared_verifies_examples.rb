@@ -7,6 +7,13 @@ module Gimme
       Then { result.should_not raise_error }
     end
 
+    context "using the N.times syntax for invocation count" do
+      Given { 2.times { test_double.ferment } }
+      Given(:verifier) { verifier_class.new(test_double, 2.times) }
+      When(:result) { lambda { 2.times { verifier.ferment } } }
+      Then { result.should_not raise_error }
+    end
+
     context "never invoked" do
       When(:result) { lambda { verifier.ferment } }
       Then { result.should raise_error Errors::VerificationFailedError }
