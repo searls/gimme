@@ -127,7 +127,7 @@ Other matchers:
 * **boolean** — matches true or false arguments
 * **numeric** — matches numeric arguments
 
-See the [cucumber feature for examples using these matchers](http://relishapp.com/searls/gimme/stubbing-with-matchers)
+See the [cucumber feature for examples using these matchers](https://www.relishapp.com/searls/gimme/docs/old/stubbing-with-matchers)
 
 #### Writing Custom Argument Matchers
 
@@ -234,4 +234,4 @@ This way we can clearly specify the SUT's interaction with the Marker class whil
 ## About
 
 ### Maintainers
-* [Justin Searls](http://about.emw/searls), [test double](http://test-double.com)
+* [Justin Searls](http://about.me/searls), [test double](http://test-double.com)
