@@ -4,7 +4,7 @@ module Gimme
     attr_accessor :raises_no_method_error
     def initialize(double,times=1)
       @double = double
-      @times = times
+      @times = times.respond_to?(:count) ? times.count : times
       @raises_no_method_error = true
     end
 

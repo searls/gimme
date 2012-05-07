@@ -98,6 +98,7 @@ You can also specify how many times a specific invocation should have occurred (
     double.equal?(:fruit)
 
     verify(double,2).equal?(:fruit)
+    verify(double,2.times).equal?(:fruit) # N.times syntax needs ruby >= 1.8.7
 
 ### Using Argument Matchers
 
