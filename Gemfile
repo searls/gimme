@@ -13,6 +13,7 @@ group :development, :test do
   gem "rspec-given"
   gem "cucumber"
   gem "simplecov", :require => false
+  gem 'jeweler'
 
   gem "guard-cucumber", :require => false
   gem "guard-rspec", :require => false
