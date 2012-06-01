@@ -1,14 +1,30 @@
 module Gimme
   class ComparesArgs
-    def match?(left, right)
-      matching = left.size == right.size
-      left.each_index do |i|
-        unless left[i] == right[i] || (right[i].respond_to?(:matches?) && right[i].matches?(left[i]))
-          matching = false
-          break
-        end
-      end
-      matching
+
+    def initialize(actual, expected)
+      @actual = actual
+      @expected = expected
     end
+
+    def match?
+      same_size? && same_args?
+    end
+
+    private
+
+    def same_size?
+      @actual.size == @expected.size
+    end
+
+    def same_args?
+      @actual.each_index.all? do |i|
+        @actual[i] == @expected[i] || matchers?(@expected[i], @actual[i])
+      end
+    end
+
+    def matchers?(matcher, arg)
+      matcher.respond_to?(:matches?) && matcher.matches?(arg)
+    end
+
   end
 end

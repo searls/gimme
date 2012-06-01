@@ -17,8 +17,7 @@ module Gimme
     private
 
     def find_matching_stubbing(method, args)
-      compares_args = ComparesArgs.new
-      if matching_stubbing = @stubbings[method].find { |(stub_args, blk)| compares_args.match?(args, stub_args) }
+      if matching_stubbing = @stubbings[method].find { |(stub_args, blk)| ComparesArgs.new(args, stub_args).match? }
         matching_stubbing.last
       end
     end
