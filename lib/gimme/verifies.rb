@@ -40,7 +40,6 @@ module Gimme
         end
       end
     end
-
   end
 
 end
