@@ -16,6 +16,7 @@ require 'gimme/store'
 require 'gimme/stubbing_store'
 require 'gimme/invocation_store'
 require 'gimme/method_store'
+require 'gimme/compares_args'
 
 require 'gimme/rspec_adapter'
 

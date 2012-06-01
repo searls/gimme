@@ -17,21 +17,10 @@ module Gimme
     private
 
     def find_matching_stubbing(method, args)
-      match = nil
-
-      @stubbings[method].each do |stub_args,stub_block|
-        matching = args.size == stub_args.size
-        args.each_index do |i|
-          unless args[i] == stub_args[i] || (stub_args[i].respond_to?(:matches?) && stub_args[i].matches?(args[i]))
-            matching = false
-            break
-          end
-        end
-        match = stub_block if matching
+      compares_args = ComparesArgs.new
+      if matching_stubbing = @stubbings[method].find { |(stub_args, blk)| compares_args.match?(args, stub_args) }
+        matching_stubbing.last
       end
-
-      match
     end
-
   end
 end

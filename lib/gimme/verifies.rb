@@ -15,18 +15,11 @@ module Gimme
     def method_missing(sym, *args, &block)
       sym = ResolvesMethods.new(__gimme__cls,sym,args).resolve(@raises_no_method_error)
 
-      #gosh, this loop sure looks familiar. just like another ugly loop I know. TODO.
       invoked = 0
       if Gimme.invocations.get(@double, sym)
+        compares_args = ComparesArgs.new
         Gimme.invocations.get(@double, sym).each do |invoke_args,count|
-          matching = args.size == invoke_args.size
-          invoke_args.each_index do |i|
-            unless invoke_args[i] == args[i]  || (args[i].respond_to?(:matches?) && args[i].matches?(invoke_args[i]))
-              matching = false
-              break
-            end
-          end
-          invoked += count if matching
+          invoked += count if compares_args.match?(invoke_args, args)
         end
       end
 
