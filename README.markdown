@@ -4,7 +4,7 @@ Gimme is a very lightweight test double library for ruby. Written to be an opini
 
 You can read the (possibly stale) documentation below or the (fresh) [gimme Cucumber features on Relish](http://relishapp.com/searls/gimme)
 
-And here's a [blog post outlining the case for gimme](http://searls.test-double.com/2011/06/03/whats-wrong-with-rubys-test-doubles/).
+And here's a [blog post outlining the case for gimme](http://searls.testdouble.com/2011/06/03/whats-wrong-with-rubys-test-doubles/).
 
 ## Basics (or "What does it Gimme?" ... har.)
 
@@ -235,4 +235,4 @@ This way we can clearly specify the SUT's interaction with the Marker class whil
 ## About
 
 ### Maintainers
-* [Justin Searls](http://about.me/searls), [test double](http://test-double.com)
+* [Justin Searls](http://about.me/searls), [test double](http://testdouble.com)
