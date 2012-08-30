@@ -28,6 +28,7 @@ Feature: class methods
 
       ScratchesCat.new.scratch(12)
 
+      verify(CatRepository).find(12)
       verify(cat).interact(:scratch)
 
       # to clear any class method stubbings, do this:
