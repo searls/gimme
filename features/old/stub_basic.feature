@@ -14,9 +14,9 @@ Feature: basic stubbing
     | to_s      | 'something' | to_s       | 'something' |
     | inspect   | 'a'         | inspect    | 'a'         |
     | hash      | 'b'         | hash       | 'b'         |
-    | to_s      | 'something' | to_s       | 'something' |
-    | to_s      | 'something' | to_s       | 'something' |
+    | to_s      | nil         | to_s       | nil         |
     | purebred? | true        | purebred?  | true        |
+
 
   Scenarios: one-arg methods
     | method          | gives | invocation        | returns |

@@ -28,19 +28,40 @@ module Gimme
     end
 
     def to_s(*args, &blk)
-      method_missing(:to_s, *args, &blk) || inspect
+      if stubbed?(:to_s, *args, &blk)
+        method_missing(:to_s, *args, &blk)
+      else
+        inspect
+      end
     end
 
     def hash(*args, &blk)
-      method_missing(:hash, *args, &blk) || __id__
+      if stubbed?(:hash, *args, &blk)
+        method_missing(:hash, *args, &blk)
+      else
+        __id__
+      end
     end
 
     def eql?(other, *args, &blk)
-      method_missing(:eql?, other, *args, &blk) || __id__ == other.__id__
+      if stubbed?(:eql?, other, *args, &blk)
+        method_missing(:eql?, other, *args, &blk)
+      else
+        __id__ == other.__id__
+      end
     end
 
     def ==(other, *args, &blk)
-      method_missing(:==, other, *args, &blk) ||eql?(other)
+      if stubbed?(:==, other, *args, &blk)
+        method_missing(:==, other, *args, &blk)
+      else
+        eql?(other)
+      end
+    end
+
+  private
+    def stubbed?(method, *args, &blk)
+      FindsStubbings.new(Gimme.stubbings.get(self)).count(method, args) > 0
     end
   end
 
