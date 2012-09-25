@@ -23,6 +23,10 @@ Then /^we can use gimme to isolate the unit under test:$/ do |string|
   eval(string)
 end
 
+Then /^this should work:$/ do |string|
+  eval(string)
+end
+
 Then /^we should see a failure message that includes:$/ do |string|
   fail "expected a prior step to have raised error" unless @last_error
   @last_error.message.should include(string)
