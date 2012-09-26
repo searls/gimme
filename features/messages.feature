@@ -3,7 +3,7 @@ Feature: messages from test doubles
   Test doubles need to output sufficient messages
     (particularly on failure)
 
-  Scenario: argument inspects
+  Scenario: inspect/to_s for arguments
     Given we have this existing code:
       """
       class Chair
@@ -41,4 +41,6 @@ Feature: messages from test doubles
     Then this should work:
       """
       gimme(Panda).to_s.should == "<#Gimme:1 Panda>"
+      gimme(Panda).inspect.should == "<#Gimme:2 Panda>"
+      gimme("a bear thing").inspect.should == "<#Gimme:3 a bear thing>"
       """

@@ -12,19 +12,20 @@ module Gimme
     @@gimme_count = 0
     Gimme.on_reset(:every) { @@gimme_count = 0 }
 
-    def initialize(cls=nil)
-      @cls = cls
+    def initialize(cls_or_name=nil)
+      @name = cls_or_name
+      @cls = cls_or_name if cls_or_name.kind_of?(Class)
       @gimme_id = (@@gimme_count += 1)
     end
 
     def method_missing(method, *args, &block)
       method = ResolvesMethods.new(self.cls, method, args).resolve(false)
       Gimme.invocations.increment(self, method, args)
-      InvokesSatisfiedStubbing.new(Gimme.stubbings.get(self)).invoke(method, args)
+      InvokesSatisfiedStubbing.new(self).invoke(method, args)
     end
 
     def inspect(*args, &blk)
-      method_missing(:inspect, *args, &blk) || "<#Gimme:#{@gimme_id} #{@cls}>"
+      method_missing(:inspect, *args, &blk) || "<#Gimme:#{@gimme_id} #{@name}>"
     end
 
     def to_s(*args, &blk)
@@ -61,7 +62,7 @@ module Gimme
 
   private
     def stubbed?(method, *args, &blk)
-      FindsStubbings.new(Gimme.stubbings.get(self)).count(method, args) > 0
+      FindsStubbings.new(self).count(method, args) > 0
     end
   end
 

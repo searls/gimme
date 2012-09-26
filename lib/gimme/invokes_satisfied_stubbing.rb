@@ -1,27 +1,7 @@
 module Gimme
-  class FindsStubbings
-    def initialize(stubbings)
-      @stubbings = stubbings || {}
-    end
-
-    def count(method, args)
-      stubbings_for(method, args).size
-    end
-
-    def find(method, args)
-      stubbings_for(method, args).last
-    end
-
-  private
-    def stubbings_for(method, args)
-      return [] unless @stubbings[method]
-      @stubbings[method].find { |(stub_args, blk)| ComparesArgs.new(args, stub_args).match? } || []
-    end
-  end
-
   class InvokesSatisfiedStubbing
-    def initialize(stubbings)
-      @finder = FindsStubbings.new(stubbings)
+    def initialize(stubbed_thing)
+      @finder = FindsStubbings.new(stubbed_thing)
     end
 
     def invoke(method, args)

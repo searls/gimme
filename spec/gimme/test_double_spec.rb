@@ -2,13 +2,13 @@ require 'spec_helper'
 
 module Gimme
   describe TestDouble do
-    class MassiveDamage
-      def boom
-        :asplode
-      end
-    end
-
     describe "#gimme_next" do
+      class MassiveDamage
+        def boom
+          :asplode
+        end
+      end
+
       Given(:test_double) { gimme_next(MassiveDamage) }
       Given(:subject) { MassiveDamage.new }
 
@@ -21,6 +21,25 @@ module Gimme
         When(:next_result) { next_subject.boom }
         Then { next_result.should == :asplode }
       end
+    end
+
+    describe "#gimme" do
+      context "of a class" do
+        subject { gimme(Object) }
+        Then { subject.should == subject }
+        Then { subject.eql?(subject).should == true }
+        Then { subject.to_s.should == "<#Gimme:1 Object>" }
+        Then { subject.inspect.should == "<#Gimme:1 Object>" }
+        Then { {}.tap {|h| h[subject] = subject }[subject].should == subject }
+      end
+
+      context "with a string name" do
+        subject { gimme("pants") }
+        Given { give(subject).name { "pants" } }
+        Then { subject.to_s.should == "<#Gimme:1 pants>" }
+        Then { subject.name.should == "pants" }
+      end
+
     end
 
   end
