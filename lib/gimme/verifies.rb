@@ -31,7 +31,7 @@ module Gimme
     end
 
     def message_for(sym, args)
-      msg = "expected #{__gimme__cls.to_s}##{sym} to have been called with arguments #{args}"
+      msg = "expected #{__gimme__cls || @double}##{sym} to have been called with arguments #{args}"
       if !Gimme.invocations.get(@double, sym) || Gimme.invocations.get(@double, sym).empty?
         msg << "\n  but was never called"
       else
