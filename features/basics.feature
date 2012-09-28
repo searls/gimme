@@ -15,7 +15,7 @@ Feature: basic usage
     of the Chef's job without actually calling through to a real Apprentice or a real Stove.
 
   Scenario:
-    Given we have this existing code:
+    Given we have this production code:
     """
       class Apprentice
         def slice(thing)
@@ -40,27 +40,60 @@ Feature: basic usage
           @slicer = slicer
           @stove = stove
         end
-      end
 
-      """
-
-    When we want to write some tests to help us write this method:
-      """
-      class Chef
         def cook
           slices = @slicer.slice("tomato")
           @stove.simmer(slices)
         end
       end
+
+      """
+    Then this RSpec will pass:
+      """
+      describe Chef do
+        describe "#cook" do
+          Given!(:slicer) { gimme_next(Apprentice) }
+          Given!(:stove) { gimme_next(Stove) }
+          Given { give(slicer).slice("tomato") { "some slices" } }
+          When { subject.cook }
+          Then { verify(stove).simmer("some slices") }
+        end
+      end
       """
 
-    Then we can use gimme to isolate the unit under test:
+  Scenario: using rspec
+    Given we have this production code:
       """
-      slicer = gimme(Apprentice)
-      stove = gimme(Stove)
-      give(slicer).slice("tomato") { "some slices" }
+      class Spaceship
+        def initialize(thruster = Thruster.new)
+          @thruster = thruster
+        end
 
-      Chef.new(slicer, stove).cook
+        def take_off
+          @thruster.fire
+        end
+      end
 
-      verify(stove).simmer("some slices")
+      class Thruster
+        def fire
+          raise "LOLTHRUSTER"
+        end
+      end
+      """
+    Then this RSpec will pass:
+      """
+      describe Spaceship do
+        context "an injected double" do
+          Given(:thruster) { gimme(Thruster) }
+          subject { Spaceship.new(thruster) }
+          When { subject.take_off }
+          Then { verify(thruster).fire }
+        end
+
+        context "a gimme_next double" do
+          Given!(:thruster) { gimme_next(Thruster) }
+          When { subject.take_off }
+          Then { verify(thruster).fire }
+        end
+      end
       """

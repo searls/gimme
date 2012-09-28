@@ -25,7 +25,11 @@ module Gimme
     end
 
     def inspect(*args, &blk)
-      method_missing(:inspect, *args, &blk) || "<#Gimme:#{@gimme_id} #{@name}>"
+      if stubbed?(:inspect, *args, &blk)
+        method_missing(:inspect, *args, &blk)
+      else
+        "<#Gimme:#{@gimme_id} #{@name}>"
+      end
     end
 
     def to_s(*args, &blk)

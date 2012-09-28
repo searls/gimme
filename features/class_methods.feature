@@ -1,7 +1,7 @@
 Feature: class methods
 
   Scenario: stubbing and verifying behavior
-    Given we have this existing code:
+    Given we have this production code:
       """
       class Cat
         def interact(type)

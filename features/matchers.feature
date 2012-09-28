@@ -18,7 +18,7 @@ Feature: argument matchers
 
 
   Background:
-    Given we have this existing code:
+    Given we have this production code:
       """
       class Mail
         attr_reader :contents

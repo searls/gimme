@@ -4,13 +4,14 @@ Feature: messages from test doubles
     (particularly on failure)
 
   Scenario: inspect/to_s for arguments
-    Given we have this existing code:
+    Given we have this production code:
       """
       class Chair
       end
 
       class Person
-        def sit_on(thing)
+        def
+         sit_on(thing)
         end
       end
       """
@@ -33,7 +34,7 @@ Feature: messages from test doubles
       """
 
   Scenario: naming mocks
-    Given we have this existing code:
+    Given we have this production code:
       """
       class Panda
       end
