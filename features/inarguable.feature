@@ -67,7 +67,7 @@ Feature:
       describe "#arrest" do
         context "is speeding" do
           When(:result) { subject.arrest }
-          Then { verify(driver).taze!.inarguably }
+          Then { verify(driver).inarguably.taze! }
         end
       end
     end

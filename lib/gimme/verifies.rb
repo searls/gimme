@@ -20,13 +20,18 @@ module Gimme
       end
     end
 
+    def inarguably
+      @inarguable = true
+      self
+    end
+
     private
 
     def invocation_count(sym, args)
       invocations = Gimme.invocations.get(@double, sym)
       return 0 unless invocations
       invocations.inject(0) do |memo, (invoke_args, count)|
-        ComparesArgs.new(invoke_args, args).match? ? memo + count : memo
+        (ComparesArgs.new(invoke_args, args).match? || @inarguable) ? memo + count : memo
       end
     end
 
