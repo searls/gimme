@@ -8,6 +8,14 @@ Feature:
 
   Will always return 99, whether you call `car.speed`, `car.speed(1)`, or `car.speed(1,2,3,4,5)`
 
+  For verification, you can chain the verify call with inarguably before
+  you call through to the method you wish to verify. In the example below,
+  one might:
+
+  verify(driver).inarguably.taze!
+
+  Which will be satisfied so long as `taze!` is invoked, regardless of arguments
+
   Scenario: inarguable stubbing
     Given we have this production code:
     """
