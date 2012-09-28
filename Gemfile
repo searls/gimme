@@ -9,7 +9,7 @@ group :development, :test do
   gem 'rdoc'
   gem 'rake'
 
-  gem "rspec"
+  gem "rspec", '2.9'
   gem "rspec-given"
   gem "cucumber"
   gem "simplecov", :require => false
