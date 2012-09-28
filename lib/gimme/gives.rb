@@ -1,5 +1,18 @@
 module Gimme
 
+  class InarguableConfiguration
+    def initialize(double, sym, args, block)
+      @double = double
+      @sym = sym
+      @args = args
+      @block = block
+    end
+
+    def inarguably
+      Gimme.stubbings.set(@double, @sym, :open_sesame, @block)
+    end
+  end
+
   class Gives < BlankSlate
     attr_accessor :raises_no_method_error
     def initialize(double)
@@ -11,6 +24,8 @@ module Gimme
       sym = ResolvesMethods.new(@double.cls,sym,args).resolve(@raises_no_method_error)
 
       Gimme.stubbings.set(@double, sym, args, block)
+
+      InarguableConfiguration.new(@double, sym, args, block)
     end
   end
 

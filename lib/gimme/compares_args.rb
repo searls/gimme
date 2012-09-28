@@ -7,6 +7,8 @@ module Gimme
     end
 
     def match?
+      return true if @expected == :open_sesame
+
       same_size? && same_args?
     end
 
