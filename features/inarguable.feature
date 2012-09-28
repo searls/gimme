@@ -41,5 +41,39 @@ Feature:
     end
     """
 
+  Scenario: inarguable verification
+    Given we have this production code:
+    """
+    class Cop
+      def initialize(driver = Driver.new)
+        @driver = driver
+      end
+
+      def arrest
+        @driver.taze!(:high)
+      end
+    end
+
+    class Driver
+      def taze!(power = :dont_taze_me_bro)
+      end
+    end
+    """
+    Then this RSpec will pass:
+    """
+    describe Cop do
+      Given!(:driver) { gimme_next(Driver) }
+
+      describe "#arrest" do
+        context "is speeding" do
+          When(:result) { subject.arrest }
+          Then { verify(driver).taze!.inarguably }
+        end
+      end
+    end
+    """
+
+
+
 
 
