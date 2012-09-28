@@ -1,6 +1,6 @@
 module Gimme
 
-  class InarguableConfiguration
+  class ChainableConfiguration
     def initialize(double, sym, args, block)
       @double = double
       @sym = sym
@@ -9,7 +9,8 @@ module Gimme
     end
 
     def inarguably
-      Gimme.stubbings.set(@double, @sym, :open_sesame, @block)
+      Gimme.stubbings.set(@double, @sym, :inarguable, @block)
+      self
     end
   end
 
@@ -25,7 +26,7 @@ module Gimme
 
       Gimme.stubbings.set(@double, sym, args, block)
 
-      InarguableConfiguration.new(@double, sym, args, block)
+      ChainableConfiguration.new(@double, sym, args, block)
     end
   end
 
