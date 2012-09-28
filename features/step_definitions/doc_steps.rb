@@ -37,7 +37,6 @@ Given /^this RSpec will pass:$/ do |spec_code|
 end
 
 def create_spec_file_for(spec_code)
-  require 'tempfile'
   Tempfile.new('spec').tap do |file|
     file.write <<-RUBY
       require 'rspec'
@@ -50,29 +49,16 @@ def create_spec_file_for(spec_code)
   end
 end
 
-class Output
-  attr_reader :output
-  def initialize
-    @output = ""
-  end
-  def puts(stuff="")
-    @output += stuff + "\n"
-  end
-  def print(stuff="")
-    @output += stuff
-  end
-end
-
 def run_spec_for(file)
-  require 'rspec'
-  out = Output.new
+  out = StringIO.new
   unless RSpec::Core::Runner.run([file.path], out, out) == 0
+    out.rewind
     fail <<-RSPEC
 ***********************************
 RSpec execution failed with output:
 ***********************************
 
-#{out.output}
+#{out.read}
     RSPEC
   end
 end

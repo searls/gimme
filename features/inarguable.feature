@@ -41,7 +41,7 @@ Feature:
 
       describe "#pull_over?" do
         context "is speeding" do
-          Given { give(car).speed { 99 }.inarguably }
+          Given { give(car).inarguably.speed { 99 } }
           When(:result) { subject.pull_over? }
           Then { result.should be_true }
         end
