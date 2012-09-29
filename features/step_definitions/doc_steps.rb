@@ -29,7 +29,7 @@ end
 
 Then /^we should see a failure message that includes:$/ do |string|
   fail "expected a prior step to have raised error" unless @last_error
-  @last_error.message.should include(string)
+  @last_error.message.should =~ Regexp.new(string)
 end
 
 Given /^this RSpec will pass:$/ do |spec_code|

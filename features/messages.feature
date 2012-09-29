@@ -26,11 +26,11 @@ Feature: messages from test doubles
       """
     Then we should see a failure message that includes:
       """
-      expected Person#sit_on to have been called with arguments [<#Gimme:1 Chair>]
+      expected Person#sit_on to have been called with arguments \[?<#Gimme:1 Chair>\]?
       """
     Then we should see a failure message that includes:
       """
-      was actually called 1 times with arguments []
+      was actually called 1 times with arguments \[?\]?
       """
 
   Scenario: naming mocks
