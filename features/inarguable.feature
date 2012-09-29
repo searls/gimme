@@ -4,7 +4,7 @@ Feature:
   a method to reply with a stubbing, regardless of the arguments passed.
   For that, you can use the `inarguable` configuration
 
-  give(car).speed { 99 }.inarguably
+  give(car).inarguably.speed { 99 }
 
   Will always return 99, whether you call `car.speed`, `car.speed(1)`, or `car.speed(1,2,3,4,5)`
 

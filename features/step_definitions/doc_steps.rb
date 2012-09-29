@@ -49,10 +49,25 @@ def create_spec_file_for(spec_code)
   end
 end
 
+class Output
+  #FIXME - why oh why does this not work with an ivar?
+  def initialize
+    @@output = ""
+  end
+  def puts(stuff="")
+    @@output += stuff + "\n"
+  end
+  def print(stuff="")
+    @@output += stuff + "\n"
+  end
+  def read
+    @@output
+  end
+end
+
 def run_spec_for(file)
-  out = StringIO.new
-  unless RSpec::Core::Runner.run([file.path], out, out) == 0
-    out.rewind
+  out = Output.new
+  unless RSpec::Core::Runner.run([file.path], nil, out) == 0
     fail <<-RSPEC
 ***********************************
 RSpec execution failed with output:
