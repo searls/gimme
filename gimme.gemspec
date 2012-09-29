@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "gimme"
-  s.version = "0.3.3"
+  s.version = "0.3.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
-  s.date = "2012-05-07"
+  s.date = "2012-09-29"
   s.description = "gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). "
   s.email = "searls@gmail.com"
   s.extra_rdoc_files = [
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
     "features/basics.feature",
     "features/class_methods.feature",
     "features/matchers.feature",
+    "features/messages.feature",
     "features/old/argument_captors.feature",
     "features/old/gimme_next.feature",
     "features/old/stub_basic.feature",
@@ -46,13 +47,16 @@ Gem::Specification.new do |s|
     "features/step_definitions/gimme_steps.rb",
     "features/support/animals.rb",
     "features/support/env.rb",
+    "features/support/hooks.rb",
     "gimme.gemspec",
     "lib/gimme-double.rb",
     "lib/gimme.rb",
     "lib/gimme/captor.rb",
+    "lib/gimme/compares_args.rb",
     "lib/gimme/dsl.rb",
     "lib/gimme/ensures_class_method_restoration.rb",
     "lib/gimme/errors.rb",
+    "lib/gimme/finds_stubbings.rb",
     "lib/gimme/gives.rb",
     "lib/gimme/gives_class_methods.rb",
     "lib/gimme/invocation_store.rb",
@@ -72,6 +76,7 @@ Gem::Specification.new do |s|
     "spec/gimme/errors_spec.rb",
     "spec/gimme/gives_class_methods_spec.rb",
     "spec/gimme/gives_spec.rb",
+    "spec/gimme/invocation_store_spec.rb",
     "spec/gimme/matchers_spec.rb",
     "spec/gimme/resolves_methods_spec.rb",
     "spec/gimme/rspec_adapter_spec.rb",
