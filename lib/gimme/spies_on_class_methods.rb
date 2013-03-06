@@ -12,7 +12,7 @@ module Gimme
 
       if meta_class.method_defined? method
         Gimme.class_methods.set(@cls, method)
-        meta_class.send(:remove_method, method)
+        meta_class.send(:undef_method, method)
       end
 
       cls = @cls

@@ -1,7 +1,15 @@
 require 'spec_helper'
 
 module Gimme
-  class ChairFactory
+  class Factory
+
+    def self.inherited_build
+      raise RuntimeError.new "unimplemented feature"
+    end
+
+  end
+
+  class ChairFactory < Factory
 
     def self.build
       raise RuntimeError.new "unimplemented feature"
@@ -23,7 +31,16 @@ module Gimme
           When { Gimme.reset }
           Then { invocation.should raise_error }
         end
+      end
 
+      describe "inherited class method spy" do
+        Given(:invocation) { lambda { ChairFactory.inherited_build } }
+        Then { invocation.should_not raise_error }
+
+        context "upon reset" do
+          When { Gimme.reset }
+          Then { invocation.should raise_error }
+        end
       end
 
       describe "imaginary class method spy" do
@@ -41,6 +58,7 @@ module Gimme
       it_behaves_like "it spies on class methods" do
         subject { SpiesOnClassMethod.new(ChairFactory) }
         Given { subject.spy(:build) }
+        Given { subject.spy(:inherited_build) }
         Given { subject.raises_no_method_error = false }
         Given { subject.spy(:fantasy) }
       end
@@ -49,6 +67,7 @@ module Gimme
     context "gimme DSL" do
       it_behaves_like "it spies on class methods" do
         Given { spy_on(ChairFactory, :build) }
+        Given { spy_on(ChairFactory, :inherited_build) }
         Given { spy_on!(ChairFactory, :fantasy) }
       end
     end
