@@ -134,7 +134,7 @@ end
 
 def sendish(target,method,args=nil,result=nil)
     s = "target.#{method}#{args}"
-    s += "{ #{result} }" if result
+    s += " { #{result} }" if result
     eval(s)
 end
 
