@@ -12,6 +12,9 @@ module Gimme
       end
     end
 
+    class FooFoo < Bunny
+    end
+
     class Rabbit
       def self.eat(food)
       end
@@ -34,6 +37,18 @@ module Gimme
       it_behaves_like "an overridden stubbing" do
         Given(:gives) { GivesClassMethods.new(subject) }
       end
+
+      context "on subclasses" do
+        Given(:subject) { FooFoo }
+
+        it_behaves_like "a normal stubbing" do
+          Given(:gives) { GivesClassMethods.new(subject) }
+        end
+
+        it_behaves_like "an overridden stubbing" do
+          Given(:gives) { GivesClassMethods.new(subject) }
+        end
+      end
     end
 
     context "using the gimme DSL" do
@@ -45,6 +60,18 @@ module Gimme
 
       it_behaves_like "an overridden stubbing" do
         Given(:gives) { give!(subject) }
+      end
+
+      context "on subclasses" do
+        Given(:subject) { FooFoo }
+
+        it_behaves_like "a normal stubbing" do
+          Given(:gives) { give(subject) }
+        end
+
+        it_behaves_like "an overridden stubbing" do
+          Given(:gives) { give!(subject) }
+        end
       end
     end
   end
