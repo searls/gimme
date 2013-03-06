@@ -10,9 +10,9 @@ module Gimme
       meta_class = (class << @cls; self; end)
       method = ResolvesMethods.new(meta_class, method).resolve(@raises_no_method_error)
 
-      if meta_class.instance_methods(false).include? method
+      if meta_class.method_defined? method
         Gimme.class_methods.set(@cls, method)
-        meta_class.send(:remove_method, method)
+        meta_class.send(:undef_method, method)
       end
 
       cls = @cls
