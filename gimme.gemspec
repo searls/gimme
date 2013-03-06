@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "gimme"
-  s.version = "0.3.4"
+  s.version = "0.3.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
-  s.date = "2012-09-29"
+  s.date = "2013-03-06"
   s.description = "gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). "
   s.email = "searls@gmail.com"
   s.extra_rdoc_files = [
