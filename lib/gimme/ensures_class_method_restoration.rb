@@ -9,7 +9,7 @@ module Gimme
       Gimme.on_reset do
         if original_method = Gimme.class_methods.get(@cls, method)
           restored_method = restored_method(meta_class, original_method)
-          meta_class.instance_eval { define_method method, restored_method }
+          meta_class.instance_eval { define_method method, &restored_method }
         else
           meta_class.send(:remove_method, method)
         end
