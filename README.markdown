@@ -1,5 +1,7 @@
 # Gimme
 
+[![Build Status](https://travis-ci.org/searls/gimme.png?branch=master)](https://travis-ci.org/searls/gimme) [![Coverage Status](https://coveralls.io/repos/searls/gimme/badge.png)](https://coveralls.io/r/searls/gimme)
+
 Gimme is a very lightweight test double library for ruby. Written to be an opinionated (but not noisy) means to facilitate test-driving by enabling the author to specify only what she cares about. If I could only feed Google one thing at this point, it would be: "[Mockito](http://mockito.org/) for Ruby"
 
 You can read the (possibly stale) documentation below or the (fresh) [gimme Cucumber features on Relish](http://relishapp.com/searls/gimme)
