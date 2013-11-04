@@ -102,6 +102,28 @@ You can also specify how many times a specific invocation should have occurred (
     verify(double,2).equal?(:fruit)
     verify(double,2.times).equal?(:fruit) # N.times syntax needs ruby >= 1.8.7
 
+#### Stubbing class methods
+
+Is to be noted that in the previous examples stubing is done on instance methods. If you need to stub a class method for example ```Dog::habilities```:
+
+```ruby
+class Dog
+  self.habilities
+    # (...)
+  end
+end
+```
+
+you can:
+
+```ruby
+give(Dog).habilities { [:bark, :drool] }
+
+Dog.habilities #=> [:bark, :drool]
+  
+verify(Dog).habilities #=> passes
+```
+
 ### Using Argument Matchers
 
 Gimme includes several argument matchers which can be used to control which invocations will satisfy a particular stubbing or verification.
