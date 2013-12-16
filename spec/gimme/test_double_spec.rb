@@ -40,7 +40,19 @@ module Gimme
         Then { subject.name.should == "pants" }
       end
 
-    end
+      context "when called with a block" do
+        subject { gimme }
 
+        Given do
+          give(subject).process {|blk| blk.call }
+        end
+
+        Then do
+          obj_in_block = false
+          subject.process { obj_in_block = true }
+          obj_in_block.should be_true
+        end
+      end
+    end
   end
 end
