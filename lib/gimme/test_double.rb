@@ -21,7 +21,7 @@ module Gimme
     def method_missing(method, *args, &block)
       method = ResolvesMethods.new(self.cls, method, args).resolve(false)
       Gimme.invocations.increment(self, method, args)
-      InvokesSatisfiedStubbing.new(self).invoke(method, args)
+      InvokesSatisfiedStubbing.new(self).invoke(method, args, block)
     end
 
     def inspect(*args, &blk)
