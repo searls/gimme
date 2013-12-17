@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "gimme"
-  s.version = "0.3.5"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Justin Searls"]
-  s.date = "2013-03-06"
+  s.date = "2013-12-17"
   s.description = "gimme attempts to bring to Ruby a test double workflow akin to Mockito in Java. Major distinctions include preserving arrange-act-assert in tests, fast feedback for methods the double's real counterpart may not know how to respond to, no string/symbolic representations of methods, argument captors, and strong opinions (weakly held). "
   s.email = "searls@gmail.com"
   s.extra_rdoc_files = [
@@ -91,11 +91,11 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/searls/gimme"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.24"
+  s.rubygems_version = "2.0.3"
   s.summary = "gimme \u{2014}\u{a0}a low-specification test double library for Ruby"
 
   if s.respond_to? :specification_version then
-    s.specification_version = 3
+    s.specification_version = 4
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_development_dependency(%q<pry>, [">= 0"])
@@ -105,6 +105,7 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec-given>, [">= 0"])
       s.add_development_dependency(%q<cucumber>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
+      s.add_development_dependency(%q<coveralls>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<guard-cucumber>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
@@ -120,6 +121,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rspec-given>, [">= 0"])
       s.add_dependency(%q<cucumber>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
+      s.add_dependency(%q<coveralls>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<guard-cucumber>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
@@ -136,6 +138,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rspec-given>, [">= 0"])
     s.add_dependency(%q<cucumber>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
+    s.add_dependency(%q<coveralls>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<guard-cucumber>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])
