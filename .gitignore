@@ -7,3 +7,4 @@ doc
 pkg
 lib/driver.rb
 .rbx
+.ruby-version
