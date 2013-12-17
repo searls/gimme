@@ -42,16 +42,10 @@ module Gimme
 
       context "when called with a block" do
         subject { gimme }
-
-        Given do
-          give(subject).process {|blk| blk.call }
-        end
-
-        Then do
-          obj_in_block = false
-          subject.process { obj_in_block = true }
-          obj_in_block.should be_true
-        end
+        Given { @number = 1 }
+        Given { give(subject).process(:three) {|blk| blk.call(3) } }
+        When { subject.process(:three) { |n| @number += n } }
+        Then { @number.should == 4 }
       end
     end
   end
