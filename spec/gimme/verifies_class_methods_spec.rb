@@ -42,5 +42,11 @@ module Gimme
         Given(:verifier) { verify!(test_double) }
       end
     end
+
+    context "without a spy" do
+      Given { give!(test_double).season }
+      When { test_double.season }
+      Then { verify(test_double).season }
+    end
   end
 end
