@@ -17,9 +17,9 @@ module Gimme
 
       #TODO this will be redundantly overwritten
       meta_class.instance_eval do
-        define_method method do |*actual_args|
+        define_method method do |*actual_args, &actual_block|
           Gimme.invocations.increment(cls, method, actual_args)
-          InvokesSatisfiedStubbing.new(cls).invoke(method, actual_args)
+          InvokesSatisfiedStubbing.new(cls).invoke(method, actual_args, actual_block)
         end
       end
 

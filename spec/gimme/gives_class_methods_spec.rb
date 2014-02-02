@@ -47,5 +47,19 @@ module Gimme
         Given(:gives) { give!(subject) }
       end
     end
+
+    context "when called with a block" do
+      Given do
+        give(Rabbit).eat {|blk| blk.call }
+      end
+
+
+      Then do
+        obj_in_block = false
+        Rabbit.eat { obj_in_block = true }
+        obj_in_block.should be_true
+      end
+    end
+
   end
 end
