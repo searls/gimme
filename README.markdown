@@ -1,6 +1,6 @@
 # Gimme
 
-[![Build Status](https://travis-ci.org/searls/gimme.png?branch=master)](https://travis-ci.org/searls/gimme) [![Coverage Status](https://coveralls.io/repos/searls/gimme/badge.png)](https://coveralls.io/r/searls/gimme)
+[![Build Status](https://travis-ci.org/searls/gimme.svg?branch=master)](https://travis-ci.org/searls/gimme) [![Coverage Status](https://coveralls.io/repos/searls/gimme/badge.svg)](https://coveralls.io/r/searls/gimme)
 
 Gimme is a very lightweight test double library for ruby. Written to be an opinionated (but not noisy) means to facilitate test-driving by enabling the author to specify only what she cares about. If I could only feed Google one thing at this point, it would be: "[Mockito](http://mockito.org/) for Ruby"
 
@@ -42,7 +42,7 @@ Next, wherever you set up your test environment, require gimme:
 
 And if you're using RSpec, you can get doubled class methods to teardown appropriately by configuring gimme as your mock framework:
 
-``` ruby
+```ruby
 RSpec.configure do |config|
   config.mock_framework = Gimme::RSpecAdapter
 end
@@ -50,7 +50,7 @@ end
 
 If you're introducing gimme to a suite that already uses another double library, you can just as well do this:
 
-``` ruby
+```ruby
 after(:each) do
   Gimme.reset
 end
@@ -61,46 +61,58 @@ Once you're in your test or spec, to create a test double.
 
 If you know what what class your SUT will be depending on, you can specify it:
 
-    double = gimme(Object)
+```ruby
+double = gimme(Object)
+```
 
 Or you could just create a generic double can stub/verify any method you need:
 
-    double = gimme()
+```ruby
+double = gimme()
+```
 
 ### Stubbing
 
 Once you have your double, you can stub methods:
 
-    give(double).to_s { 'Pants' }
-    double.to_s                         #=> 'Pants'
+```ruby
+give(double).to_s { 'Pants' }
+double.to_s                         #=> 'Pants'
 
-    give(double).equal?(:ninja) { true }
-    give(double).equal?(:fruit) { false }
-    double.equal?(:ninja)               #=> true
+give(double).equal?(:ninja) { true }
+give(double).equal?(:fruit) { false }
+double.equal?(:ninja)               #=> true
+```
 
 You can also stub your double to raise an exception (or really, do anything in the passed block):
 
-    dog = gimme(Dog)
-    give(dog).holler_at(:mail_man) { raise LeashLawError }
+```ruby
+dog = gimme(Dog)
+give(dog).holler_at(:mail_man) { raise LeashLawError }
 
-    dog.holler_at(:mail_man) # raises LeashLawError
+dog.holler_at(:mail_man) # raises LeashLawError
+```
 
 ### Verifying
 
 You can also verify interactions with your double
 
-    double.equal?(:fruit)
+```ruby
+double.equal?(:fruit)
 
-    verify(double).equal?(:fruit)       # passes verification (read: does nothing)
-    verify(double).equal?(:what_the)    # fails verification (raises a Gimme::VerifyFailedError)
+verify(double).equal?(:fruit)       # passes verification (read: does nothing)
+verify(double).equal?(:what_the)    # fails verification (raises a Gimme::VerifyFailedError)
+```
 
 You can also specify how many times a specific invocation should have occurred (defaults to 1):
 
-    double.equal?(:fruit)
-    double.equal?(:fruit)
+```ruby
+double.equal?(:fruit)
+double.equal?(:fruit)
 
-    verify(double,2).equal?(:fruit)
-    verify(double,2.times).equal?(:fruit) # N.times syntax needs ruby >= 1.8.7
+verify(double,2).equal?(:fruit)
+verify(double,2.times).equal?(:fruit) # N.times syntax needs ruby >= 1.8.7
+```
 
 #### Stubbing class methods
 
@@ -120,7 +132,7 @@ you can:
 give(Dog).habilities { [:bark, :drool] }
 
 Dog.habilities #=> [:bark, :drool]
-  
+
 verify(Dog).habilities #=> passes
 ```
 
@@ -132,18 +144,22 @@ Gimme includes several argument matchers which can be used to control which invo
 
 Replacing an argument with `anything` will instantiate a `Gimme::Matchers::Anything` matcher, which always returns true, regardless of what gets passed in.
 
-    give(dog).walk_to(anything,5) { 'Park' }
+```ruby
+give(dog).walk_to(anything,5) { 'Park' }
 
-    walk_to(3,5)          #=> 'Park'
-    walk_to('pants',5)    #=> 'Park'
-    walk_to(nil,5)        #=> 'Park'
-    walk_to(3,5.1)        #=> nil
+walk_to(3,5)          #=> 'Park'
+walk_to('pants',5)    #=> 'Park'
+walk_to(nil,5)        #=> 'Park'
+walk_to(3,5.1)        #=> nil
+```
 
 Matchers can be used when both stubbing and verifying a method. To verify on anything, you could:
 
-    dog.holler_at(true)
+```ruby
+dog.holler_at(true)
 
-    verify(dog).holler_at(anything) #=> passes verification
+verify(dog).holler_at(anything) #=> passes verification
+```
 
 Other matchers:
 
@@ -159,14 +175,15 @@ See the [cucumber feature for examples using these matchers](https://www.relisha
 It's pretty easy to roll your own argument matchers as well. All you really need to do is pass as an argument to a method stubbed by `give` or verified by `verify` an object
 that can respond to `matches?(arg)`. Maybe something like this would work (even though it'd be of questionable utility):
 
-    class Nothing
-      def matches?(arg)
-        false
-      end
-    end
+```ruby
+class Nothing
+  def matches?(arg)
+    false
+  end
+end
 
-    give(dog).introduce_to(Nothing.new) { :meow }     #b/c Nothing.matches? always returns false, :meow will never returned by the double.
-
+give(dog).introduce_to(Nothing.new) { :meow }     #b/c Nothing.matches? always returns false, :meow will never returned by the double.
+```
 
 ### Using Argument Captors
 
@@ -174,18 +191,19 @@ An instance of an argument `Captor`, when paired with the `capture` matcher, is 
 
 In cases like these, a captor can be used to "capture" the real argument value that the system under test passes its collaborator. This pseudocode provides an example:
 
-    #arrange
-    searches_system = gimme(SearchesSystem)
-    sut = QueryExecutor.new(searches_sytem)
-    query_captor = Gimme::Captor.new
+```ruby
+#arrange
+searches_system = gimme(SearchesSystem)
+sut = QueryExecutor.new(searches_sytem)
+query_captor = Gimme::Captor.new
 
-    #act
-    sut.submit_query_for_string("find dogs")
+#act
+sut.submit_query_for_string("find dogs")
 
-    #assert
-    verify(searches_system).execute(capture(query_captor))
-    query_captor.value.table_name.should == "Dogs"
-
+#assert
+verify(searches_system).execute(capture(query_captor))
+query_captor.value.table_name.should == "Dogs"
+```
 
 ### Suppressing NoMethodError
 
@@ -206,18 +224,22 @@ For these situations, you could either (1) declare your double without a class a
 
 Here's an example where our Dog is again being doubled to facilitate some test, and even though the Dog class lacks a public `meow()` method, we happen to know that at runtime, the newest version of the `bananimals` gem will reopen Dog and add `meow()` to it.
 
-    dog = gimme(Dog)
-    give!(dog).meow { :purr }
+```ruby
+dog = gimme(Dog)
+give!(dog).meow { :purr }
 
-    dog.meow              #=> :purr
+dog.meow              #=> :purr
+```
 
 We can accomplish the same thing using `verify!`:
 
-    dog = gimme(Dog)
+```ruby
+dog = gimme(Dog)
 
-    dog.meow
+dog.meow
 
-    verify!(dog).meow     #=> verification passes, even though gimme can't see the meow method.
+verify!(dog).meow     #=> verification passes, even though gimme can't see the meow method.
+```
 
 ### gimme_next
 
@@ -225,30 +247,34 @@ To my knowledge, there isn't an established pattern or name for this next featur
 
 Take this example method from the RSpec book:
 
-    def guess(guess)
-      marker = Marker.new(@secret,guess)
-      @output.puts '+'*marker.exact_match_count + '-'*marker.number_match_count
-    end
+```ruby
+def guess(guess)
+  marker = Marker.new(@secret,guess)
+  @output.puts '+'*marker.exact_match_count + '-'*marker.number_match_count
+end
+```
 
 This can be tested with gimme in isolation (meaning that a real Marker object is never instantiated or invoked) like so:
 
-    describe '#guess' do
-      let(:marker) { gimme_next(Marker) }
-      before do
-        give(marker).exact_match_count { 4 }
-        give(marker).number_match_count { 0 }
+```ruby
+describe '#guess' do
+  let(:marker) { gimme_next(Marker) }
+  before do
+    give(marker).exact_match_count { 4 }
+    give(marker).number_match_count { 0 }
 
-        game.guess('1234')
-      end
+    game.guess('1234')
+  end
 
-      it 'instantiates a marker with the secret and guess' do
-        verify!(marker).initialize('1234','1234')
-      end
+  it 'instantiates a marker with the secret and guess' do
+    verify!(marker).initialize('1234','1234')
+  end
 
-      it 'outputs the exact matches followed by the number matches' do
-        verify(output).puts('++++')
-      end
-    end
+  it 'outputs the exact matches followed by the number matches' do
+    verify(output).puts('++++')
+  end
+end
+```
 
 As you can see above, `gimme_next(Marker)` will create a double just like `gimme()` would have, but it will also temporarily redefine the passed class's `new` method such that the next instantiation of that class (presumably by the SUT) will return the same double.*
 
