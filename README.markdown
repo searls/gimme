@@ -194,7 +194,7 @@ In cases like these, a captor can be used to "capture" the real argument value t
 ```ruby
 #arrange
 searches_system = gimme(SearchesSystem)
-sut = QueryExecutor.new(searches_sytem)
+sut = QueryExecutor.new(searches_system)
 query_captor = Gimme::Captor.new
 
 #act
