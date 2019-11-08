@@ -29,7 +29,7 @@ module Gimme
 
         context "upon reset" do
           When { Gimme.reset }
-          Then { invocation.should raise_error }
+          Then { invocation.should raise_error /unimplemented feature/ }
         end
       end
 
@@ -39,7 +39,7 @@ module Gimme
 
         context "upon reset" do
           When { Gimme.reset }
-          Then { invocation.should raise_error }
+          Then { invocation.should raise_error /unimplemented feature/ }
         end
       end
 
@@ -49,7 +49,7 @@ module Gimme
 
         context "upon reset" do
           When { Gimme.reset }
-          Then { invocation.should raise_error }
+          Then { invocation.should raise_error NoMethodError }
         end
       end
     end
